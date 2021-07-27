@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : BaseActiveObject
 {
     #region Variables
 
@@ -12,23 +12,31 @@ public class Player : MonoBehaviour
     [SerializeField] private float _playerRotationSpeed;
 
     // Player rigidbody
-    private Rigidbody2D playerRigidbody;
+    private Rigidbody2D _playerRigidbody;
 
     #endregion
 
     #region Unity
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        // Disabling gravity
-        playerRigidbody = transform.gameObject.GetComponent<Rigidbody2D>();
+        base.Start();
+        _playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         Movement();
+    }
+
+    // OnCollisionCheck
+    private void OnCollision2DEnter(Collision2D collision)
+    {
+        _playerRigidbody.velocity = Vector2.zero;
+        _playerRigidbody.angularVelocity = 0;
     }
 
     #endregion
@@ -42,7 +50,7 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         // Moving
-        playerRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
+        _playerRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
         // Rotating
         transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
     }
