@@ -33,7 +33,7 @@ public class Player : BaseActiveObject
     }
 
     // OnCollisionCheck
-    private void OnCollision2DEnter(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         _playerRigidbody.velocity = Vector2.zero;
         _playerRigidbody.angularVelocity = 0;
