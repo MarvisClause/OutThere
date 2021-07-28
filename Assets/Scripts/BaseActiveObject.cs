@@ -7,80 +7,57 @@ public abstract class BaseActiveObject : MonoBehaviour
 {
     #region Variables
 
-    // Object renderers
-    private Renderer[] _renderers;
-    // Variables for boundaries analyze
-    private bool _isWrappingX = false;
-    private bool _isWrappingY = false;
-    #endregion
+    // Active object rigidbody
+    protected Rigidbody2D _objectRigidbody;
+    // Screen borders
+    protected float _leftConstraint;
+    protected float _rightConstraint;
+    protected float _bottomConstraint;
+    protected float _topConstraint;
+    protected float _buffer = 1.0f;
+    protected Camera _mainCamera;
 
-    #region Unity
-
-    // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        _renderers = GetComponentsInChildren<Renderer>();
+        // Getting object rigidbody
+        _objectRigidbody = GetComponent<Rigidbody2D>();
+        // Getting our camera
+        _mainCamera = Camera.main;
+        // Calculating camera constraints
+        _leftConstraint = _mainCamera.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, 0.0f)).x;
+        _rightConstraint = _mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0.0f, 0.0f)).x;
+        _bottomConstraint = _mainCamera.ScreenToWorldPoint(new Vector3(0.0f, 0.0f, 0.0f)).y;
+        _topConstraint = _mainCamera.ScreenToWorldPoint(new Vector3(0.0f, Screen.height, 0.0f)).y;
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
-        CheckForConstraints();
+        CheckConstraints();
     }
 
     #endregion
 
     #region Methods
 
-    // Checking if object flew out of camera view
-    protected void CheckForConstraints()
+    // Checking, if object went of the screen
+    protected void CheckConstraints()
     {
-        // Checking object visibility
-        bool isVisible = CheckRenderers();
-        if (isVisible)
+        if (transform.position.x < _leftConstraint - _buffer)
         {
-            _isWrappingX = false;
-            _isWrappingY = false;
-            return;
+            transform.position = new Vector3(_rightConstraint + _buffer, transform.position.y, transform.position.z);
         }
-        if (_isWrappingX && _isWrappingY)
+        if (transform.position.x > _rightConstraint + _buffer)
         {
-            return;
+            transform.position = new Vector3(_leftConstraint - _buffer, transform.position.y, transform.position.z);
         }
-        // Getting camera component
-        Camera cam = Camera.main;
-        // Getting view port position of camera
-        Vector3 viewportPosition = cam.WorldToViewportPoint(transform.position);
-        // Checking if object has flown out of boundaries
-        Vector3 newPosition = transform.position;
-        if (!_isWrappingX && (viewportPosition.x > 1 || viewportPosition.x < 0))
+        if (transform.position.y < _bottomConstraint - _buffer)
         {
-            newPosition.x = -newPosition.x;
-            _isWrappingX = true;
+            transform.position = new Vector3(transform.position.x, _topConstraint + _buffer, transform.position.z);
         }
-        if (!_isWrappingY && (viewportPosition.y > 1 || viewportPosition.y < 0))
+        if (transform.position.y > _topConstraint + _buffer)
         {
-            newPosition.y = -newPosition.y;
-            _isWrappingY = true;
+            transform.position = new Vector3(transform.position.x, _bottomConstraint - _buffer, transform.position.z);
         }
-        // Changing position
-        transform.position = newPosition;
-    }
-
-    // Checking for renderers visibility
-    private bool CheckRenderers()
-    {
-        foreach (var renderer in _renderers)
-        {
-            // If at least one render is visible, return true
-            if (renderer.isVisible)
-            {
-                return true;
-            }
-        }
-
-        // Otherwise, the object is invisible
-        return false;
     }
 
     #endregion

@@ -11,18 +11,14 @@ public class Player : BaseActiveObject
     // Player rotation speed
     [SerializeField] private float _playerRotationSpeed;
 
-    // Player rigidbody
-    private Rigidbody2D _playerRigidbody;
-
     #endregion
 
     #region Unity
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        _playerRigidbody = GetComponent<Rigidbody2D>();
+        base.Awake();
     }
 
     // Update is called once per frame
@@ -35,8 +31,8 @@ public class Player : BaseActiveObject
     // OnCollisionCheck
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _playerRigidbody.velocity = Vector2.zero;
-        _playerRigidbody.angularVelocity = 0;
+        _objectRigidbody.velocity = Vector2.zero;
+        _objectRigidbody.angularVelocity = 0;
     }
 
     #endregion
@@ -50,7 +46,7 @@ public class Player : BaseActiveObject
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         // Moving
-        _playerRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
+        _objectRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
         // Rotating
         transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
     }
