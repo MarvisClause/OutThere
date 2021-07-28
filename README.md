@@ -1,2 +1,2 @@
-# OutThe...
+# OutThere
 First coop game :D

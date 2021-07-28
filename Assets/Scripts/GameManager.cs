@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
 
-    //Singleton 
+
+    //Singleton
 
     private static GameManager _instance;
     public static GameManager GetInstance()
