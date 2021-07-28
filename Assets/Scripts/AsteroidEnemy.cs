@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class AsteroidEnemy : BaseActiveObject
 {
+    #region Variables
+
+    // Enemy speed
     [SerializeField] private int _enemySpeed;
-    private Vector2 _screenBounds;
+
+    #endregion
+
+    #region Unity
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        // Getting screen bounds
-        _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        // Moving in random direction, when instantiated
-        _objectRigidbody.AddForce(new Vector2(Random.Range(-_enemySpeed, _enemySpeed), -_enemySpeed), ForceMode2D.Impulse);
+        base.Awake();
+    }
+
+    protected void OnEnable()
+    {
         // Spawning object in specific height
-        transform.position = new Vector2(Random.Range(0, _screenBounds.x), _screenBounds.y + 2);
+        transform.position = new Vector2(Random.Range(0, _rightConstraint), _topConstraint + 2);
+        // Move function
+        Move();
     }
 
     // Update is called once per frame
@@ -24,4 +32,25 @@ public class AsteroidEnemy : BaseActiveObject
     {
         base.Update();
     }
+
+    // OnCollisionCheck
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        SpawnManager.GetInstance().ActiveEnemiesCounter--;
+        gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region Methods
+
+    // Move method
+    private void Move()
+    {
+        // Moving in random direction, when enabled
+        _objectRigidbody.AddForce
+            (new Vector2(Random.Range(-_enemySpeed, _enemySpeed), Random.Range(-_enemySpeed, _enemySpeed)), ForceMode2D.Impulse);
+    }
+
+    #endregion
 }

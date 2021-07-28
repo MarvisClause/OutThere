@@ -10,14 +10,14 @@ public abstract class BaseActiveObject : MonoBehaviour
     // Active object rigidbody
     protected Rigidbody2D _objectRigidbody;
     // Screen borders
-    private float _leftConstraint = Screen.width;
-    private float _rightConstraint = Screen.width;
-    float _bottomConstraint = Screen.height;
-    float _topConstraint = Screen.height;
-    float _buffer = 1.0f;
-    Camera _mainCamera;
+    protected float _leftConstraint;
+    protected float _rightConstraint;
+    protected float _bottomConstraint;
+    protected float _topConstraint;
+    protected float _buffer = 1.0f;
+    protected Camera _mainCamera;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         // Getting object rigidbody
         _objectRigidbody = GetComponent<Rigidbody2D>();

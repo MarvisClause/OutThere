@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     {
         if (_instance == null)
         {
-            _instance = new GameManager();
+            throw new System.Exception();
         }
         return _instance;
     }
