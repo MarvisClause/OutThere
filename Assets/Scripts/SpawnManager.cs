@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public enum PoolType
+    { 
+        Enemies,
+        SubEnemies
+    }
+
+
     #region Variables
 
     //Singleton
@@ -32,8 +39,8 @@ public class SpawnManager : MonoBehaviour
         set { _activeEnemiesCounter = value; }
     }
 
-    // Object pool
-    private List<GameObject> _objectPool;
+    // Pools
+    private List<List<GameObject>> _pools;
 
     #endregion
 
@@ -43,7 +50,11 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         _instance = this;
-        _objectPool = new List<GameObject>();
+        _pools = new List<List<GameObject>>();
+        for (int i = 0; i < PoolType.GetNames(typeof(PoolType)).Length; i++)
+        {
+            _pools.Add(new List<GameObject>());
+        }
         ActiveEnemiesCounter = 0;
     }
 
@@ -73,28 +84,47 @@ public class SpawnManager : MonoBehaviour
     {
         // Getting index of enemy, we want to spawn
         int spawnIndex = Random.Range(0, _enemiesToSpawn.Count);
-        int objInd = IsObjectInPool(_enemiesToSpawn[spawnIndex]);
-        // If object is indeed in pool, then reactivate it
+        SpawnObject(PoolType.Enemies, _enemiesToSpawn[spawnIndex], false);
+    }
+
+    /// <summary>
+    /// Spawns object
+    /// </summary>
+    /// <param name="poolType">Pool type in which object should be spawned</param>
+    /// <param name="gameObject">Object to spawn</param>
+    /// <param name="setPosition">Do we need to set position of an object by ourselves</param>
+    /// <param name="pos">Position of an object (optional)</param>
+    public void SpawnObject(PoolType poolType, GameObject gameObject, bool setPosition, Vector3 pos = new Vector3()) 
+    {
+        List<GameObject> pool = _pools[(int)poolType];
+        int objInd = IsObjectInPool(pool, gameObject); // If object is indeed in pool, then reactivate it
         if (objInd != -1)
         {
-            _objectPool[objInd].SetActive(true);
-            return;
+            pool[objInd].SetActive(true);
         }
-        GameObject toInstantiate = Instantiate(_enemiesToSpawn[Random.Range(0, _enemiesToSpawn.Count)]);
-        // Putting this object inside spawn manager
-        toInstantiate.transform.parent = transform;
-        // Add object to pool
-        _objectPool.Add(toInstantiate);
+        else
+        {
+            GameObject toInstantiate = Instantiate(_enemiesToSpawn[Random.Range(0, _enemiesToSpawn.Count)]);
+            // Putting this object inside spawn manager
+            toInstantiate.transform.parent = transform;
+            // Add object to pool
+            pool.Add(toInstantiate);
+        }
+        // Set position of the object
+        if (setPosition == true)
+        {
+            gameObject.transform.position = pos;
+        }
     }
 
     // Checking if the object is in the pool
-    private int IsObjectInPool(GameObject obj)
+    private int IsObjectInPool(List<GameObject> pool, GameObject obj)
     {
-        for (int i = 0; i < _objectPool.Count; i++)
+        for (int i = 0; i < pool.Count; i++)
         {
-            if (obj.tag.Equals(_objectPool[i].tag))
+            if (obj.tag.Equals(pool[i].tag))
             {
-                if (_objectPool[i].activeSelf == false)
+                if (pool[i].activeSelf == false)
                 {
                     return i;
                 }

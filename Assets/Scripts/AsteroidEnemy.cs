@@ -7,17 +7,19 @@ public class AsteroidEnemy : BaseEnemyObject
     #region Variables
 
     // Sprite renderer
-    private SpriteRenderer _spriteRender;
+    protected SpriteRenderer _spriteRender;
     // Asteroid sprites (for random type)
-    [SerializeField] private List<Sprite> _asteroidSprites;
+    [SerializeField] protected List<Sprite> _asteroidSprites;
+
+    // Sub-Asteroids, which will spawn after this will be destroyed
+    [SerializeField] private List<GameObject> _asteroidCrackedPrefabs;
+    // Maximum amount of asteroids, which can possible crack from this after being hit
+    [SerializeField] private int _maxAsteroidsCrackedFrom;
 
     // Minimum speed
-    [SerializeField] private int _minSpeed;
+    [SerializeField] protected int _minSpeed;
     // Maximum speed
-    [SerializeField] private int _maxSpeed;
-
-    // Defines, if asteroid was cracked
-    private bool _isCracked;
+    [SerializeField] protected int _maxSpeed;
 
     #endregion
 
@@ -35,7 +37,7 @@ public class AsteroidEnemy : BaseEnemyObject
         _spriteRender = GetComponent<SpriteRenderer>();
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         // Random sprite choosing
         _spriteRender.sprite = _asteroidSprites[Random.Range(0, _asteroidSprites.Count)];
@@ -56,7 +58,7 @@ public class AsteroidEnemy : BaseEnemyObject
     #region Methods
 
     // Move method
-    private void Move()
+    protected void Move()
     {
         int speed = Random.Range(_minSpeed, _maxSpeed);
         // Moving in random direction, when enabled
@@ -67,6 +69,17 @@ public class AsteroidEnemy : BaseEnemyObject
     // Object was hit
     protected override void Hit()
     {
+        if (_asteroidCrackedPrefabs.Count > 0)
+        {
+            int randomCrackedAsteroids = Random.Range(0, _maxAsteroidsCrackedFrom);
+            for (int i = 0; i < randomCrackedAsteroids; i++)
+            {
+                // Spawning asteroids
+                SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
+                    _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)], true,
+                    transform.position);
+            }
+        }
         SpawnManager.GetInstance().ActiveEnemiesCounter--;
         gameObject.SetActive(false);
     }

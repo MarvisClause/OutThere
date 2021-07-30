@@ -115,7 +115,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -140,5 +140,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4d27aee6d1b1b9148a061817169bd3bf, type: 3}
   - {fileID: 21300000, guid: d15093e57fa44204b880350d7c6fd431, type: 3}
   - {fileID: 21300000, guid: 4fb34a28885f5f84495a427a8ecc21ea, type: 3}
-  _minSpeed: 2
+  _asteroidCrackedPrefabs: []
+  _maxAsteroidsCrackedFrom: 1
+  _minSpeed: 3
   _maxSpeed: 5
