@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class for holding global variables
+public static class Globals
+{
+    #region Tags
+
+    // Player tag
+    public const string PLAYER_TAG = "Player";
+    // Enemy tag
+    public const string ENEMY_TAG = "Enemy";
+
+    #endregion
+}
+
 public class GameManager : MonoBehaviour
 {
     #region Variables
-
 
     //Singleton
 

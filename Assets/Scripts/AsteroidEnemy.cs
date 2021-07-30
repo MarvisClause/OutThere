@@ -2,27 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidEnemy : BaseActiveObject
+public class AsteroidEnemy : BaseEnemyObject
 {
     #region Variables
 
-    // Enemy speed
-    [SerializeField] private int _enemySpeed;
+    // Sprite renderer
+    private SpriteRenderer _spriteRender;
+    // Asteroid sprites (for random type)
+    [SerializeField] private List<Sprite> _asteroidSprites;
+
+    // Minimum speed
+    [SerializeField] private int _minSpeed;
+    // Maximum speed
+    [SerializeField] private int _maxSpeed;
+
+    // Defines, if asteroid was cracked
+    private bool _isCracked;
 
     #endregion
 
     #region Unity
 
-    // Start is called before the first frame update
     protected override void Awake()
     {
         base.Awake();
+        // Speed check
+        if (_maxSpeed < _minSpeed)
+        {
+            _maxSpeed = _minSpeed;
+        }
+        // Getting sprite renderer
+        _spriteRender = GetComponent<SpriteRenderer>();
     }
 
     protected void OnEnable()
     {
+        // Random sprite choosing
+        _spriteRender.sprite = _asteroidSprites[Random.Range(0, _asteroidSprites.Count)];
         // Spawning object in specific height
-        transform.position = new Vector2(Random.Range(0, _rightConstraint), _topConstraint + 2);
+        transform.position = new Vector2(Random.Range(0, _rightConstraint), _topConstraint + 1);
         // Move function
         Move();
     }
@@ -33,13 +51,6 @@ public class AsteroidEnemy : BaseActiveObject
         base.Update();
     }
 
-    // OnCollisionCheck
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        SpawnManager.GetInstance().ActiveEnemiesCounter--;
-        gameObject.SetActive(false);
-    }
-
     #endregion
 
     #region Methods
@@ -47,9 +58,17 @@ public class AsteroidEnemy : BaseActiveObject
     // Move method
     private void Move()
     {
+        int speed = Random.Range(_minSpeed, _maxSpeed);
         // Moving in random direction, when enabled
         _objectRigidbody.AddForce
-            (new Vector2(Random.Range(-_enemySpeed, _enemySpeed), Random.Range(-_enemySpeed, _enemySpeed)), ForceMode2D.Impulse);
+            (new Vector2(Random.Range(-speed, speed), Random.Range(-speed, speed)), ForceMode2D.Impulse);
+    }
+
+    // Object was hit
+    protected override void Hit()
+    {
+        SpawnManager.GetInstance().ActiveEnemiesCounter--;
+        gameObject.SetActive(false);
     }
 
     #endregion

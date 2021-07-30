@@ -134,4 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cbd5b765e1fdb41ae1f98a74f44191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySpeed: 4
+  _asteroidSprites:
+  - {fileID: 21300000, guid: b33f4f5cc2e166943a8ac45203d38c5b, type: 3}
+  - {fileID: 21300000, guid: 22479bda33c7f78448032ac32dc4dbcd, type: 3}
+  - {fileID: 21300000, guid: 4d27aee6d1b1b9148a061817169bd3bf, type: 3}
+  - {fileID: 21300000, guid: d15093e57fa44204b880350d7c6fd431, type: 3}
+  - {fileID: 21300000, guid: 4fb34a28885f5f84495a427a8ecc21ea, type: 3}
+  _minSpeed: 2
+  _maxSpeed: 5
