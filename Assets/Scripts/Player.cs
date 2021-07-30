@@ -10,6 +10,8 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerMovementSpeed;
     // Player rotation speed
     [SerializeField] private float _playerRotationSpeed;
+    // Player hit force
+    [SerializeField] private float _playerHitForce;
 
     #endregion
 
@@ -33,6 +35,7 @@ public class Player : BaseActiveObject
     {
         _objectRigidbody.velocity = Vector2.zero;
         _objectRigidbody.angularVelocity = 0;
+        _objectRigidbody.velocity = transform.up * -_playerHitForce;
     }
 
     #endregion

@@ -96,6 +96,7 @@ public class SpawnManager : MonoBehaviour
     /// <param name="pos">Position of an object (optional)</param>
     public void SpawnObject(PoolType poolType, GameObject gameObject, bool setPosition, Vector3 pos = new Vector3()) 
     {
+        GameObject toInstantiate = null;
         List<GameObject> pool = _pools[(int)poolType];
         int objInd = IsObjectInPool(pool, gameObject); // If object is indeed in pool, then reactivate it
         if (objInd != -1)
@@ -104,7 +105,7 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
-            GameObject toInstantiate = Instantiate(_enemiesToSpawn[Random.Range(0, _enemiesToSpawn.Count)]);
+            toInstantiate = Instantiate(gameObject);
             // Putting this object inside spawn manager
             toInstantiate.transform.parent = transform;
             // Add object to pool
@@ -113,7 +114,16 @@ public class SpawnManager : MonoBehaviour
         // Set position of the object
         if (setPosition == true)
         {
-            gameObject.transform.position = pos;
+            // If object is in pool
+            if (objInd != -1)
+            {
+                pool[objInd].transform.position = pos;
+            }
+            // If object is not in pool
+            else
+            {
+                toInstantiate.transform.position = pos;
+            }
         }
     }
 

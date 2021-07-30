@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1882411347725167063}
   - component: {fileID: 1882411347725167056}
   - component: {fileID: 1882411347725167057}
-  - component: {fileID: 1770030998}
+  - component: {fileID: -3697186970992848065}
   m_Layer: 0
-  m_Name: AsteroidEnemy
+  m_Name: AsteroidCrackedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882411347725167058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 3.7456367, y: -1.1302538, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -113,7 +113,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1770030998
+--- !u!114 &-3697186970992848065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,17 +131,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1882411347725167058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7cbd5b765e1fdb41ae1f98a74f44191, type: 3}
+  m_Script: {fileID: 11500000, guid: 3557b1db226155b42962732980070f7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _asteroidSprites:
-  - {fileID: 21300000, guid: b33f4f5cc2e166943a8ac45203d38c5b, type: 3}
   - {fileID: 21300000, guid: 22479bda33c7f78448032ac32dc4dbcd, type: 3}
-  - {fileID: 21300000, guid: 4d27aee6d1b1b9148a061817169bd3bf, type: 3}
-  - {fileID: 21300000, guid: d15093e57fa44204b880350d7c6fd431, type: 3}
   - {fileID: 21300000, guid: 4fb34a28885f5f84495a427a8ecc21ea, type: 3}
-  _minSpeed: 5
-  _maxSpeed: 10
-  _asteroidCrackedPrefabs:
-  - {fileID: 1882411347725167058, guid: dd0e862c9540d174cbb26bb2b6970877, type: 3}
-  _maxAsteroidsCrackedFrom: 3
+  - {fileID: 21300000, guid: d15093e57fa44204b880350d7c6fd431, type: 3}
+  - {fileID: 21300000, guid: b33f4f5cc2e166943a8ac45203d38c5b, type: 3}
+  - {fileID: 21300000, guid: 4d27aee6d1b1b9148a061817169bd3bf, type: 3}
+  _minSpeed: 1
+  _maxSpeed: 3
