@@ -17,6 +17,10 @@ public abstract class BaseActiveObject : MonoBehaviour
     protected float _buffer = 1.0f;
     protected Camera _mainCamera;
 
+    #endregion
+
+    #region Unity
+
     protected virtual void Awake()
     {
         // Getting object rigidbody

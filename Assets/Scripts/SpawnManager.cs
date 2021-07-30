@@ -56,6 +56,10 @@ public class SpawnManager : MonoBehaviour
             _pools.Add(new List<GameObject>());
         }
         ActiveEnemiesCounter = 0;
+        if (_timeToRandomlySpawnFrom > _timeToRandomlySpawnTo)
+        {
+            _timeToRandomlySpawnFrom = _timeToRandomlySpawnTo;
+        }
     }
 
     // Update is called once per frame
