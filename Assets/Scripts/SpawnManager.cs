@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    // Pool types
     public enum PoolType
-    { 
+    {
         Enemies,
         SubEnemies
     }
-
 
     #region Variables
 
@@ -23,7 +23,6 @@ public class SpawnManager : MonoBehaviour
         }
         return _instance;
     }
-
     // Enemies to spawn
     [SerializeField] private List<GameObject> _enemiesToSpawn;
     // Maximum amount of enemies on screen
@@ -33,12 +32,11 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int _timeToRandomlySpawnTo;
     // Counter for active enemies on screen
     private int _activeEnemiesCounter;
-    public int ActiveEnemiesCounter 
-    { 
+    public int ActiveEnemiesCounter
+    {
         get { return _activeEnemiesCounter; }
         set { _activeEnemiesCounter = value; }
     }
-
     // Pools
     private List<List<GameObject>> _pools;
 
@@ -109,6 +107,7 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
+            // Instantiate object
             toInstantiate = Instantiate(gameObject);
             // Putting this object inside spawn manager
             toInstantiate.transform.parent = transform;

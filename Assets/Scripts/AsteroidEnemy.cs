@@ -55,6 +55,7 @@ public class AsteroidEnemy : AsteroidBaseEnemy
                 SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
                     _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)], true,
                     transform.position);
+                SpawnManager.GetInstance().ActiveEnemiesCounter++;
             }
         }
         base.Hit();

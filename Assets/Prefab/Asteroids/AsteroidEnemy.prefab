@@ -144,4 +144,4 @@ MonoBehaviour:
   _maxSpeed: 10
   _asteroidCrackedPrefabs:
   - {fileID: 1882411347725167058, guid: dd0e862c9540d174cbb26bb2b6970877, type: 3}
-  _maxAsteroidsCrackedFrom: 3
+  _maxAsteroidsCrackedFrom: 6
