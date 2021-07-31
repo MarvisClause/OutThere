@@ -36,7 +36,7 @@ public class Player : BaseActiveObject
         Vector2 hitVelocity = _objectRigidbody.velocity;
         _objectRigidbody.velocity = Vector2.zero;
         _objectRigidbody.angularVelocity = 0;
-        _objectRigidbody.AddForce(hitVelocity * _playerHitForce, ForceMode2D.Impulse);
+        _objectRigidbody.AddForce(hitVelocity * _playerHitForce * _playerHitForce, ForceMode2D.Force);
     }
 
     #endregion
