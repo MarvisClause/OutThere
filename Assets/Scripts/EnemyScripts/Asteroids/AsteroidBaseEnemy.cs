@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Base asteroid enemy class
-public abstract class AsteroidBaseEnemy : BaseEnemyObject
+public abstract class AsteroidBaseEnemy : BaseActiveObject
 {
     #region Variables
 
@@ -15,9 +15,9 @@ public abstract class AsteroidBaseEnemy : BaseEnemyObject
 
     [Header("Asteroid")]
     // Minimum speed
-    [SerializeField] protected int _minSpeed;
+    [SerializeField] protected float _minSpeed;
     // Maximum speed
-    [SerializeField] protected int _maxSpeed;
+    [SerializeField] protected float _maxSpeed;
 
     #endregion
 
@@ -58,7 +58,7 @@ public abstract class AsteroidBaseEnemy : BaseEnemyObject
     // Move method
     protected void Move()
     {
-        int speed = Random.Range(_minSpeed, _maxSpeed);
+        float speed = Random.Range(_minSpeed, _maxSpeed);
         // Moving in random direction, when enabled
         _objectRigidbody.AddForce
             (new Vector2(Random.Range(-speed, speed), Random.Range(-speed, speed)), ForceMode2D.Impulse);

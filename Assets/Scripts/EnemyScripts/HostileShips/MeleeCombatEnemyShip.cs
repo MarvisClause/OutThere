@@ -7,7 +7,6 @@ public class MeleeCombatEnemyShip : BaseEnemyShip
     #region Variables
 
 
-
     #endregion
 
     #region Unity
@@ -15,22 +14,42 @@ public class MeleeCombatEnemyShip : BaseEnemyShip
     // Awake is called in initialization phase
     protected override void Awake()
     {
-        
+        _playerPosition = GameObject.Find("Player").transform;
+        base.Awake();
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+        Move();
     }
 
     #endregion
 
     #region Methods
 
+    // Enemy ship moving
+    protected void Move()
+    {
+        // Add force to move towards object
+        _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
+        // Rotate towards player
+
+        // Calculate direction = destination - source
+        Vector3 direction = _playerPosition.position - transform.position;
+        // Calculate the angle using the inverse tangent method
+        // We also subtract 90 degrees from 180, because we use sprites, which are Y-axis oriented
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        // Define the rotation along a specific axis using the angle
+        Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
+        // Slerp from our current rotation to the new specific rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * _enemyShipRotationSpeed);
+    }
+
     protected override void Hit(Collision2D collision)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     #endregion
