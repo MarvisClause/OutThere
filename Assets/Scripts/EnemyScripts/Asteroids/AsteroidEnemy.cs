@@ -44,21 +44,24 @@ public class AsteroidEnemy : AsteroidBaseEnemy
     #region Methods
 
     // Object was hit
-    protected override void Hit()
+    protected override void Hit(Collision2D collision)
     {
-        if (_asteroidCrackedPrefabs.Count > 0)
+        if (collision.gameObject.tag == Globals.PLAYER_TAG)
         {
-            int randomCrackedAsteroids = Random.Range(0, _maxAsteroidsCrackedFrom);
-            for (int i = 0; i < randomCrackedAsteroids; i++)
+            if (_asteroidCrackedPrefabs.Count > 0)
             {
-                // Spawning asteroids
-                SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
-                    _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)], true,
-                    transform.position);
-                SpawnManager.GetInstance().ActiveEnemiesCounter++;
+                int randomCrackedAsteroids = Random.Range(0, _maxAsteroidsCrackedFrom);
+                for (int i = 0; i < randomCrackedAsteroids; i++)
+                {
+                    // Spawning asteroids
+                    SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
+                        _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)], true,
+                        transform.position);
+                    SpawnManager.GetInstance().ActiveEnemiesCounter++;
+                }
             }
+            base.Hit(collision);
         }
-        base.Hit();
     }
 
     #endregion

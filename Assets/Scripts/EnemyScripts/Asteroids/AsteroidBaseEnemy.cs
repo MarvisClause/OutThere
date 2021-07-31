@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidBaseEnemy : BaseEnemyObject
+// Base asteroid enemy class
+public abstract class AsteroidBaseEnemy : BaseEnemyObject
 {
     #region Variables
 
@@ -64,10 +65,13 @@ public class AsteroidBaseEnemy : BaseEnemyObject
     }
 
     // Object was hit
-    protected override void Hit()
+    protected override void Hit(Collision2D collision)
     {
-        SpawnManager.GetInstance().ActiveEnemiesCounter--;
-        gameObject.SetActive(false);
+        if (collision.gameObject.tag == Globals.PLAYER_TAG)
+        {
+            SpawnManager.GetInstance().ActiveEnemiesCounter--;
+            gameObject.SetActive(false);
+        }
     }
 
     #endregion

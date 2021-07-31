@@ -9,18 +9,17 @@ public abstract class BaseEnemyObject : BaseActiveObject
     // OnCollisionCheck
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag.Equals(Globals.PLAYER_TAG) == true)
-        {
-            Hit();
-        }
+        Hit(collision);
     }
 
     #endregion
 
     #region Methods
 
-    // Behaviour of an object, after it was hit
-    protected abstract void Hit();
+    // Behaviour of an object, after it was hit by some collider
+    // Class, which inherit this class must implement and describe
+    // how object should react to being hit
+    protected abstract void Hit(Collision2D collision);
 
     #endregion
 }
