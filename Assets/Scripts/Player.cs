@@ -33,9 +33,10 @@ public class Player : BaseActiveObject
     // OnCollisionCheck
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Vector2 hitVelocity = _objectRigidbody.velocity;
         _objectRigidbody.velocity = Vector2.zero;
         _objectRigidbody.angularVelocity = 0;
-        _objectRigidbody.velocity = transform.up * -_playerHitForce;
+        _objectRigidbody.AddForce(hitVelocity * _playerHitForce, ForceMode2D.Impulse);
     }
 
     #endregion
