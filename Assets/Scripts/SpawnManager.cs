@@ -97,7 +97,6 @@ public class SpawnManager : MonoBehaviour
     /// <param name="gameObject">Object to spawn</param>
     public GameObject SpawnObject(PoolType poolType, GameObject gameObject) 
     {
-        GameObject toInstantiate = null;
         List<GameObject> pool = _pools[(int)poolType];
         int objInd = IsObjectInPool(pool, gameObject); // If object is indeed in pool, then reactivate it
         if (objInd != -1)
@@ -108,7 +107,7 @@ public class SpawnManager : MonoBehaviour
         else
         {
             // Instantiate object
-            toInstantiate = Instantiate(gameObject);
+            GameObject toInstantiate = Instantiate(gameObject);
             // Putting this object inside spawn manager
             toInstantiate.transform.parent = transform;
             // Add object to pool
