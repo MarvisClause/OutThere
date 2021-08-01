@@ -5,9 +5,24 @@ using UnityEngine.Audio;
 
 public class CanvasButtons : MonoBehaviour
 {
+    #region Variables
     public GameObject mainMenu;
     public AudioMixer audioMixer;
-    
+    public static bool GameIsPaused = false;
+    #endregion
+
+    #region Unity  
+    public void Start()
+    {
+        
+    }
+    private void Update()
+    {
+      
+    }
+    #endregion 
+
+    #region Methods
     //Button for Quit
     public void Quit()
     {   //quit the game
@@ -22,5 +37,9 @@ public class CanvasButtons : MonoBehaviour
     public void MusicVolume(float volume) 
     {
         audioMixer.SetFloat("volume",volume);
-    }
+    } 
+    //For Pause Menu 
+   
+    #endregion
+
 }
