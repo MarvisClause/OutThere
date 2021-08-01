@@ -8,7 +8,8 @@ public class SpawnManager : MonoBehaviour
     public enum PoolType
     {
         Enemies,
-        SubEnemies
+        SubEnemies, 
+        PlayerBullets
     }
 
     #region Variables
@@ -86,7 +87,7 @@ public class SpawnManager : MonoBehaviour
     {
         // Getting index of enemy, we want to spawn
         int spawnIndex = Random.Range(0, _enemiesToSpawn.Count);
-        SpawnObject(PoolType.Enemies, _enemiesToSpawn[spawnIndex], false);
+        SpawnObject(PoolType.Enemies, _enemiesToSpawn[spawnIndex]);
     }
 
     /// <summary>
@@ -94,10 +95,7 @@ public class SpawnManager : MonoBehaviour
     /// </summary>
     /// <param name="poolType">Pool type in which object should be spawned</param>
     /// <param name="gameObject">Object to spawn</param>
-    /// <param name="setPosition">Do we need to set position of an object by ourselves</param>
-    /// <param name="pos">Position of an object (optional)</param>
-    public void SpawnObject(PoolType poolType, GameObject gameObject, bool setPosition, 
-        Vector3 objectPosition = new Vector3(), Quaternion objectRotation = new Quaternion()) 
+    public GameObject SpawnObject(PoolType poolType, GameObject gameObject) 
     {
         GameObject toInstantiate = null;
         List<GameObject> pool = _pools[(int)poolType];
@@ -105,6 +103,7 @@ public class SpawnManager : MonoBehaviour
         if (objInd != -1)
         {
             pool[objInd].SetActive(true);
+            return pool[objInd];
         }
         else
         {
@@ -114,20 +113,7 @@ public class SpawnManager : MonoBehaviour
             toInstantiate.transform.parent = transform;
             // Add object to pool
             pool.Add(toInstantiate);
-        }
-        // Set position of the object
-        if (setPosition == true)
-        {
-            // If object is in pool
-            if (objInd != -1)
-            {
-                pool[objInd].transform.position = objectPosition;
-            }
-            // If object is not in pool
-            else
-            {
-                toInstantiate.transform.position = objectPosition;
-            }
+            return toInstantiate;
         }
     }
 

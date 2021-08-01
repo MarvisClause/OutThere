@@ -50,13 +50,14 @@ public class AsteroidEnemy : AsteroidBaseEnemy
         {
             if (_asteroidCrackedPrefabs.Count > 0)
             {
+                GameObject crackedAsteroid;
                 int randomCrackedAsteroids = Random.Range(0, _maxAsteroidsCrackedFrom);
                 for (int i = 0; i < randomCrackedAsteroids; i++)
-                {
-                    // Spawning asteroids
-                    SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
-                        _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)], true,
-                        transform.position);
+                { 
+                    // Spawning asteroids 
+                    crackedAsteroid = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
+                        _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)]);
+                    crackedAsteroid.transform.position = transform.position; 
                     SpawnManager.GetInstance().ActiveEnemiesCounter++;
                 }
             }

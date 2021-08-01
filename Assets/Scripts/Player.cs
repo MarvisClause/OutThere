@@ -12,6 +12,8 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerRotationSpeed;
     // Player hit force
     [SerializeField] private float _playerHitForce;
+    // Player bullet
+    [SerializeField] protected GameObject _playerProjectile;
 
     #endregion
 
@@ -22,6 +24,11 @@ public class Player : BaseActiveObject
     {
         base.Update();
         Movement();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Fire();
+        }
     }
 
     #endregion
@@ -44,6 +51,17 @@ public class Player : BaseActiveObject
     {
         _objectRigidbody.AddForce(_objectRigidbody.velocity * _playerHitForce * _playerHitForce, ForceMode2D.Force);
     }
+     
+    // Player fire
+    private void Fire()
+    {
+        Vector3 bulletPos = transform.position + transform.up ;
+        Quaternion bulletRotate = transform.rotation;
+       
+       GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
 
+        bulletInstance.transform.position = bulletPos;
+        bulletInstance.transform.rotation = bulletRotate;
+    }
     #endregion
 }
