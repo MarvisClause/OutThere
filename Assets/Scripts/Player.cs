@@ -10,29 +10,18 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerMovementSpeed;
     // Player rotation speed
     [SerializeField] private float _playerRotationSpeed;
+    // Player hit force
+    [SerializeField] private float _playerHitForce;
 
     #endregion
 
     #region Unity
-
-    // Start is called before the first frame update
-    protected override void Awake()
-    {
-        base.Awake();
-    }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
         Movement();
-    }
-
-    // OnCollisionCheck
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        _objectRigidbody.velocity = Vector2.zero;
-        _objectRigidbody.angularVelocity = 0;
     }
 
     #endregion
@@ -49,6 +38,11 @@ public class Player : BaseActiveObject
         _objectRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
         // Rotating
         transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
+    }
+
+    protected override void Hit(Collision2D collision)
+    {
+        _objectRigidbody.AddForce(_objectRigidbody.velocity * _playerHitForce * _playerHitForce, ForceMode2D.Force);
     }
 
     #endregion

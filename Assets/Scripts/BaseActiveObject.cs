@@ -17,6 +17,10 @@ public abstract class BaseActiveObject : MonoBehaviour
     protected float _buffer = 1.0f;
     protected Camera _mainCamera;
 
+    #endregion
+
+    #region Unity
+
     protected virtual void Awake()
     {
         // Getting object rigidbody
@@ -33,6 +37,12 @@ public abstract class BaseActiveObject : MonoBehaviour
     protected virtual void Update()
     {
         CheckConstraints();
+    }
+
+    // OnCollisionCheck
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        Hit(collision);
     }
 
     #endregion
@@ -59,6 +69,11 @@ public abstract class BaseActiveObject : MonoBehaviour
             transform.position = new Vector3(transform.position.x, _bottomConstraint - _buffer, transform.position.z);
         }
     }
+
+    // Behaviour of an object, after it was hit by some collider
+    // Class, which inherit this class must implement and describe
+    // how object should react to being hit
+    protected abstract void Hit(Collision2D collision);
 
     #endregion
 }
