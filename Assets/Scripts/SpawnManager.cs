@@ -96,7 +96,8 @@ public class SpawnManager : MonoBehaviour
     /// <param name="gameObject">Object to spawn</param>
     /// <param name="setPosition">Do we need to set position of an object by ourselves</param>
     /// <param name="pos">Position of an object (optional)</param>
-    public void SpawnObject(PoolType poolType, GameObject gameObject, bool setPosition, Vector3 pos = new Vector3()) 
+    public void SpawnObject(PoolType poolType, GameObject gameObject, bool setPosition, 
+        Vector3 objectPosition = new Vector3(), Quaternion objectRotation = new Quaternion()) 
     {
         GameObject toInstantiate = null;
         List<GameObject> pool = _pools[(int)poolType];
@@ -120,12 +121,12 @@ public class SpawnManager : MonoBehaviour
             // If object is in pool
             if (objInd != -1)
             {
-                pool[objInd].transform.position = pos;
+                pool[objInd].transform.position = objectPosition;
             }
             // If object is not in pool
             else
             {
-                toInstantiate.transform.position = pos;
+                toInstantiate.transform.position = objectPosition;
             }
         }
     }
