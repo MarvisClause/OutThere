@@ -49,7 +49,7 @@ public class MeleeCombatEnemyShip : BaseEnemyShip
 
     protected override void Hit(Collision2D collision)
     {
-        
+        base.Hit(collision);
     }
 
     #endregion

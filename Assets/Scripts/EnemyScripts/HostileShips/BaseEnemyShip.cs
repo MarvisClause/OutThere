@@ -30,6 +30,10 @@ public abstract class BaseEnemyShip : BaseActiveObject
 
     #region Methods
 
+    protected override void Hit(Collision2D collision)
+    {
+
+    }
 
     #endregion
 }

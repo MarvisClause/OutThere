@@ -36,7 +36,7 @@ public abstract class BaseActiveObject : MonoBehaviour
 
     protected virtual void Update()
     {
-        CheckConstraints();
+        ScreenWrapping();
     }
 
     // OnCollisionCheck
@@ -49,24 +49,41 @@ public abstract class BaseActiveObject : MonoBehaviour
 
     #region Methods
 
-    // Checking, if object went of the screen
-    protected void CheckConstraints()
+    /// <summary>
+    /// Checking, if object went of the screen
+    /// </summary>
+    /// <returns>Position, where object should appear after reaching screen constraints, else zero vector3</returns>
+    protected Vector3 CheckConstraints()
     {
+        Vector3 constraintCheck = Vector3.zero;
         if (transform.position.x < _leftConstraint - _buffer)
         {
-            transform.position = new Vector3(_rightConstraint + _buffer, transform.position.y, transform.position.z);
+            constraintCheck=new Vector3(_rightConstraint + _buffer, transform.position.y, transform.position.z);
         }
         if (transform.position.x > _rightConstraint + _buffer)
         {
-            transform.position = new Vector3(_leftConstraint - _buffer, transform.position.y, transform.position.z);
+            constraintCheck =new Vector3(_leftConstraint - _buffer, transform.position.y, transform.position.z);
         }
         if (transform.position.y < _bottomConstraint - _buffer)
         {
-            transform.position = new Vector3(transform.position.x, _topConstraint + _buffer, transform.position.z);
+            constraintCheck = new Vector3(transform.position.x, _topConstraint + _buffer, transform.position.z);
         }
         if (transform.position.y > _topConstraint + _buffer)
         {
-            transform.position = new Vector3(transform.position.x, _bottomConstraint - _buffer, transform.position.z);
+            constraintCheck =new  Vector3(transform.position.x, _bottomConstraint - _buffer, transform.position.z);
+        }
+        return constraintCheck;
+    }
+
+    /// <summary>
+    /// Changes object position, whent it reaches edges of the map
+    /// </summary>
+    protected void ScreenWrapping()
+    {
+        Vector3 newPos = CheckConstraints();
+        if (newPos != Vector3.zero)
+        {
+            transform.position = newPos;
         }
     }
 

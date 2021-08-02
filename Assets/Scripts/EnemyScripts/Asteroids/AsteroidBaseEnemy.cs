@@ -67,7 +67,8 @@ public abstract class AsteroidBaseEnemy : BaseActiveObject
     // Object was hit
     protected override void Hit(Collision2D collision)
     {
-        if (collision.gameObject.tag == Globals.PLAYER_TAG)
+        if (collision.gameObject.tag == Globals.PLAYER_TAG
+            || collision.gameObject.tag == Globals.PLAYER_BULLET_TAG)
         {
             SpawnManager.GetInstance().ActiveEnemiesCounter--;
             gameObject.SetActive(false);
