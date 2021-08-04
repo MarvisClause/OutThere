@@ -47,10 +47,5 @@ public class MeleeCombatEnemyShip : BaseEnemyShip
         transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * _enemyShipRotationSpeed);
     }
 
-    protected override void Hit(Collision2D collision)
-    {
-        base.Hit(collision);
-    }
-
     #endregion
 }

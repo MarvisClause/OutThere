@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Base enemy ship class
-public abstract class BaseEnemyShip : BaseActiveObject
+public abstract class BaseEnemyShip : BaseEnemyObject
 {
     #region Variables
 
     // Player position for enemy ship navigation
     protected Transform _playerPosition;
-    // Amount of damage, which ship can handle
-    [SerializeField] protected float _enemyShipHealth;
+    // Ship initial health
+    [SerializeField] protected float _enemyShipHealthInitial;
+    // Enemy ship recent health
+    protected float _enemyShipRecentHealth;
     // Enemy ship speed
     [SerializeField] protected float _enemyShipSpeed;
     // Enemy ship rotation speed
@@ -20,19 +22,29 @@ public abstract class BaseEnemyShip : BaseActiveObject
 
     #region Unity
 
-    protected virtual void OnEnable()
+    protected override void OnEnable()
     {
         // Spawning object in specific height
-        transform.position = new Vector2(Random.Range(0, _rightConstraint), _topConstraint + 1);
+        _enemyShipRecentHealth = _enemyShipHealthInitial;
+        base.OnEnable();
     }
 
     #endregion
 
     #region Methods
 
-    protected override void Hit(Collision2D collision)
+    protected override void HitByPlayerEffect(Collision2D collision)
     {
-
+        if (collision.gameObject.tag == Globals.PLAYER_BULLET_TAG)
+        {
+            _enemyShipRecentHealth--;
+            // If enemy ship health equal zero, than it will explode
+            if (_enemyShipRecentHealth <= 0)
+            {
+                SpawnManager.GetInstance().ActiveEnemiesCounter--;
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     #endregion

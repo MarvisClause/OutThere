@@ -14,7 +14,7 @@ public abstract class BaseActiveObject : MonoBehaviour
     protected float _rightConstraint;
     protected float _bottomConstraint;
     protected float _topConstraint;
-    protected float _buffer = 1.0f;
+    protected float _screenEdgeBuffer = 1.0f;
     protected Camera _mainCamera;
 
     #endregion
@@ -56,21 +56,21 @@ public abstract class BaseActiveObject : MonoBehaviour
     protected Vector3 CheckConstraints()
     {
         Vector3 constraintCheck = Vector3.zero;
-        if (transform.position.x < _leftConstraint - _buffer)
+        if (transform.position.x < _leftConstraint - _screenEdgeBuffer)
         {
-            constraintCheck=new Vector3(_rightConstraint + _buffer, transform.position.y, transform.position.z);
+            constraintCheck=new Vector3(_rightConstraint + _screenEdgeBuffer, transform.position.y, transform.position.z);
         }
-        if (transform.position.x > _rightConstraint + _buffer)
+        if (transform.position.x > _rightConstraint + _screenEdgeBuffer)
         {
-            constraintCheck =new Vector3(_leftConstraint - _buffer, transform.position.y, transform.position.z);
+            constraintCheck =new Vector3(_leftConstraint - _screenEdgeBuffer, transform.position.y, transform.position.z);
         }
-        if (transform.position.y < _bottomConstraint - _buffer)
+        if (transform.position.y < _bottomConstraint - _screenEdgeBuffer)
         {
-            constraintCheck = new Vector3(transform.position.x, _topConstraint + _buffer, transform.position.z);
+            constraintCheck = new Vector3(transform.position.x, _topConstraint + _screenEdgeBuffer, transform.position.z);
         }
-        if (transform.position.y > _topConstraint + _buffer)
+        if (transform.position.y > _topConstraint + _screenEdgeBuffer)
         {
-            constraintCheck =new  Vector3(transform.position.x, _bottomConstraint - _buffer, transform.position.z);
+            constraintCheck =new  Vector3(transform.position.x, _bottomConstraint - _screenEdgeBuffer, transform.position.z);
         }
         return constraintCheck;
     }
