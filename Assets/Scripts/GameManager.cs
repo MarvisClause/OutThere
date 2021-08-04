@@ -18,7 +18,7 @@ public static class Globals
 public class GameManager : MonoBehaviour
 {
     #region Variables
-
+  
     //Singleton
 
     private static GameManager _instance;
