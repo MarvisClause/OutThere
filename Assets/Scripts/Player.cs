@@ -6,6 +6,10 @@ public class Player : BaseActiveObject
 {
     #region Variables
 
+    // Player max health 
+    [SerializeField] private int _playerHealthMaxCapacity;
+    // Player health for game session
+    private int _playerRecentHealth;
     // Player movement speed
     [SerializeField] private float _playerMovementSpeed;
     // Player rotation speed
@@ -14,20 +18,41 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerHitForce;
     // Player bullet
     [SerializeField] protected GameObject _playerProjectile;
+    // Is player hit
+    protected bool _isPlayerHit;
+    // Player hit cooldown time
+    [SerializeField] protected int _afterHitCooldownTime;
 
     #endregion
 
     #region Unity
 
+    // On player enable
+    protected void OnEnable()
+    {
+        // Setting player hit condition to false
+        _isPlayerHit = false;
+        // Setting player health back to maximum value
+        _playerRecentHealth = _playerHealthMaxCapacity;
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        Movement();
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // This is temporary method of checking if game is on pause.
+        // Might be better to make it event based.
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (GameManager.GetInstance().IsOnPause == false)
         {
-            Fire();
+            base.Update();
+            // Moving
+            Movement();
+            // Shooting
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Fire();
+            }
         }
     }
 
@@ -47,21 +72,44 @@ public class Player : BaseActiveObject
         transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
     }
 
+    // Object reaction to being hit
     protected override void Hit(Collision2D collision)
     {
+        // Player pushed away after hit
         _objectRigidbody.AddForce(_objectRigidbody.velocity * _playerHitForce * _playerHitForce, ForceMode2D.Force);
+        // Checking if player was hit or not
+        if (_isPlayerHit == false)
+        {
+            // Was player hit
+            _isPlayerHit = true;
+            // Decrease player health
+            _playerRecentHealth--;
+            // Invoke method
+            Invoke(nameof(HitCooldown), _afterHitCooldownTime);
+            // Logging damage
+            Debug.Log("Player health after hit: " + _playerRecentHealth);
+        }
     }
      
+    // After player was hit there is time gap, where he can't be hit again
+    private void HitCooldown()
+    {
+        // Disabling player hit condition
+        _isPlayerHit = false;
+    }
+
     // Player fire
     private void Fire()
     {
-        Vector3 bulletPos = transform.position + transform.up ;
+        // Setting bullet position and its rotation
+        Vector3 bulletPos = transform.position + transform.up;
         Quaternion bulletRotate = transform.rotation;
-       
-       GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
-
+        // Requesting an object from spawn manager
+        GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
+        // Setting its position and rotation
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
     }
+
     #endregion
 }

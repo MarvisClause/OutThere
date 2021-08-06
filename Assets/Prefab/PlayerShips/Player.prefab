@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 64343d67ddbf26140a508a82d33fea65, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9444db113cbd1b048b3787f3902b414f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,15 +123,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 1.5
+  m_Mass: 3
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3383606661316065572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d087a1c6ee22c814d9878f0368b4b7fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerHealthMaxCapacity: 3
   _playerMovementSpeed: 5
-  _playerRotationSpeed: 50
+  _playerRotationSpeed: 120
   _playerHitForce: 4
-  _playerProjectile: {fileID: 0}
+  _playerProjectile: {fileID: 4859727046847546834, guid: 471d49208cbadfc4c82bcafe7930052c, type: 3}
+  _afterHitCooldownTime: 3

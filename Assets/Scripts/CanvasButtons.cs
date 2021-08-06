@@ -6,57 +6,76 @@ using UnityEngine.Audio;
 public class CanvasButtons : MonoBehaviour
 {
     #region Variables   
+
+    // Pause menu
     [SerializeField] protected GameObject _pauseMenu;
-    [SerializeField] protected GameObject _player;
+    // Main menu
     [SerializeField] protected GameObject _mainMenu;
-    [SerializeField] protected AudioMixer _audioMixer;
-    //public static bool GameIsPaused = false;
+
     #endregion
     
     #region Unity  
+
     public void Start()
     {
         _pauseMenu.SetActive(false);
     }
+
     private void Update()
     {
-        if (_player.activeSelf == true)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                _pauseMenu.SetActive(true);
-                _player.SetActive(false);
-            }
-
+            PauseGame();
         }
     }
     
     #endregion 
 
     #region Methods
+
     //Button for Quit
     public void Quit()
-    {   //quit the game
+    {  
+        // Quit the game
         Application.Quit();
     } 
     
+    // Starts the game
     public void StartTheGame()
     {
         _mainMenu.SetActive(false);
-        _player.SetActive(true);
-
-    } 
-    //For audio slider in options
+        GameManager.GetInstance().StartGame();
+    }
+    
+    // For audio slider in options
     public void MusicVolume(float volume) 
     {
-        _audioMixer.SetFloat("volume",volume);
+        GameManager.GetInstance().MusicVolume(volume);
     } 
-    //For pause game 
+
+    // Pauses game
+    public void PauseGame()
+    {
+        if (GameManager.GetInstance().PauseGame() == true)
+        {
+            _pauseMenu.SetActive(true);
+        }
+    }
+
+    // For pause game 
     public void PauseGameOff()
     {
         _pauseMenu.SetActive(false);
-        _player.SetActive(true);
+        GameManager.GetInstance().PauseGameOff();
     }
-    #endregion
 
+    // Returns scene state to main menu
+    public void BackToMainMenu()
+    {
+        _pauseMenu.SetActive(false);
+        _mainMenu.SetActive(true);
+        GameManager.GetInstance().BackToMainMenu();
+    }
+
+    #endregion
 }

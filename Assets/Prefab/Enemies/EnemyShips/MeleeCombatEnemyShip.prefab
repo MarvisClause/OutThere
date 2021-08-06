@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 2}
+  m_Size: {x: 0.7, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &-1225718827304582133
 MonoBehaviour:
@@ -144,6 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57f6f6d1a3886e44934f06569e81da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyShipHealth: 3
+  _enemyShipHealthInitial: 3
   _enemyShipSpeed: 10
   _enemyShipRotationSpeed: 1.5
