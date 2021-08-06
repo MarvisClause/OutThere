@@ -905,10 +905,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98deffaac453af46956cf37efd90e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 334618018}
-  player: {fileID: 0}
-  mainMenu: {fileID: 5901866115707682983}
-  audioMixer: {fileID: 24100000, guid: d4824b41aa6329f4c801b01e0d8c31d7, type: 2}
+  _pauseMenu: {fileID: 0}
+  _player: {fileID: 0}
+  _mainMenu: {fileID: 0}
+  _audioMixer: {fileID: 0}
 --- !u!1 &5901866114190327728
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,12 +39,20 @@ public class Player : BaseActiveObject
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        Movement();
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // This is temporary method of checking if game is on pause.
+        // Might be better to make it event based.
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (GameManager.GetInstance().IsOnPause == false)
         {
-            Fire();
+            base.Update();
+            // Moving
+            Movement();
+            // Shooting
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Fire();
+            }
         }
     }
 
@@ -79,7 +87,7 @@ public class Player : BaseActiveObject
             // Invoke method
             Invoke(nameof(HitCooldown), _afterHitCooldownTime);
             // Logging damage
-            Debug.Log(_playerRecentHealth);
+            Debug.Log("Player health after hit: " + _playerRecentHealth);
         }
     }
      
@@ -93,11 +101,12 @@ public class Player : BaseActiveObject
     // Player fire
     private void Fire()
     {
+        // Setting bullet position and its rotation
         Vector3 bulletPos = transform.position + transform.up;
         Quaternion bulletRotate = transform.rotation;
-       
-       GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
-
+        // Requesting an object from spawn manager
+        GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
+        // Setting its position and rotation
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
     }
