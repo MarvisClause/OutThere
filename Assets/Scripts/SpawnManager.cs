@@ -73,6 +73,22 @@ public class SpawnManager : MonoBehaviour
 
     #region Methods
 
+    // Disables all objects
+    public void DisableAllObjects()
+    {
+        // Setting active enemies counter to zero
+        ActiveEnemiesCounter = 0;
+        // Iterate through each pool
+        for (int poolIteration = 0; poolIteration < _pools.Count; poolIteration++)
+        {
+            // Iterate through each element in list
+            for (int listIteration = 0; listIteration < _pools[poolIteration].Count; listIteration++)
+            {
+                _pools[poolIteration][listIteration].SetActive(false);
+            }
+        }
+    }
+
     // Spawns random enemy on screen
     private void SpawnEnemyCheck()
     {

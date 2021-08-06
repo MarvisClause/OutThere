@@ -69,5 +69,13 @@ public class CanvasButtons : MonoBehaviour
         GameManager.GetInstance().PauseGameOff();
     }
 
+    // Returns scene state to main menu
+    public void BackToMainMenu()
+    {
+        _pauseMenu.SetActive(false);
+        _mainMenu.SetActive(true);
+        GameManager.GetInstance().BackToMainMenu();
+    }
+
     #endregion
 }

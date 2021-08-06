@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour
     // Start the game
     public void StartGame()
     {
+        // Disable all objects on screen
+        SpawnManager.GetInstance().DisableAllObjects();
         // Activating player
         _player.SetActive(true);
         // Set player rotation to upwards
@@ -124,6 +126,14 @@ public class GameManager : MonoBehaviour
         _player.SetActive(true);
         Time.timeScale = 1.0f;
     }
+
+    // Disables everything on scene to return it to the state of main menu
+    public void BackToMainMenu()
+    {
+        _player.SetActive(false);
+        SpawnManager.GetInstance().DisableAllObjects();
+        Time.timeScale = 1.0f;
+    }    
 
     #endregion
 }
