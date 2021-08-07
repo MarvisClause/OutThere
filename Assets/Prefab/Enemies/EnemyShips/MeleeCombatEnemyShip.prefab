@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2817457410715859894}
   - component: {fileID: 2064546814827541687}
   - component: {fileID: 6322631456980683207}
+  - component: {fileID: 7062935766324717663}
   - component: {fileID: -1225718827304582133}
   m_Layer: 0
   m_Name: MeleeCombatEnemyShip
@@ -132,6 +133,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 2}
   m_EdgeRadius: 0
+--- !u!58 &7062935766324717663
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805464642012237488}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
 --- !u!114 &-1225718827304582133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,5 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyShipHealthInitial: 3
-  _enemyShipSpeed: 2
+  _enemyShipSpeed: 5
   _enemyShipRotationSpeed: 1.5

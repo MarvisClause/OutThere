@@ -29,6 +29,15 @@ public abstract class BaseEnemyShip : BaseEnemyObject
         base.OnEnable();
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // Keep distance from other objects
+        if (collision.transform.tag == Globals.ENEMY_TAG)
+        {
+            _objectRigidbody.AddForce((-(collision.transform.position - transform.position).normalized) * _enemyShipSpeed / 2, ForceMode2D.Force);
+        }
+    }
+
     #endregion
 
     #region Methods
