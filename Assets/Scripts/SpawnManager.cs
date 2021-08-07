@@ -76,6 +76,8 @@ public class SpawnManager : MonoBehaviour
     // Disables all objects
     public void DisableAllObjects()
     {
+        // Cancel all invoke methods in this class
+        CancelInvoke();
         // Setting active enemies counter to zero
         ActiveEnemiesCounter = 0;
         // Iterate through each pool

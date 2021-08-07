@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6322631456980683207
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -145,5 +145,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyShipHealthInitial: 3
-  _enemyShipSpeed: 10
+  _enemyShipSpeed: 2
   _enemyShipRotationSpeed: 1.5

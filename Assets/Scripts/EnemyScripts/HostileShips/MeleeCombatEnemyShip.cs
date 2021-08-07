@@ -11,11 +11,11 @@ public class MeleeCombatEnemyShip : BaseEnemyShip
 
     #region Unity
 
-    // Awake is called in initialization phase
-    protected override void Awake()
+    // On enable
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _playerPosition = GameObject.Find("Player").transform;
-        base.Awake();
     }
 
     // Update is called once per frame
@@ -35,7 +35,6 @@ public class MeleeCombatEnemyShip : BaseEnemyShip
         // Add force to move towards object
         _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
         // Rotate towards player
-
         // Calculate direction = destination - source
         Vector3 direction = _playerPosition.position - transform.position;
         // Calculate the angle using the inverse tangent method
