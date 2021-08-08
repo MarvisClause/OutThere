@@ -4,33 +4,10 @@ using UnityEngine;
 
 public class MeleeCombatEnemyShip : BaseEnemyShip
 {
-    #region Variables
-
-
-    #endregion
-
-    #region Unity
-
-    // On enable
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        _playerPosition = GameObject.Find("Player").transform;
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-        Move();
-    }
-
-    #endregion
-
     #region Methods
 
     // Enemy ship moving
-    protected void Move()
+    protected override void ShipBehaviour()
     {
         // Add force to move towards object
         _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);

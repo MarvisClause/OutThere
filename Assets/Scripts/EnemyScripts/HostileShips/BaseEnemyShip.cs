@@ -22,16 +22,26 @@ public abstract class BaseEnemyShip : BaseEnemyObject
 
     #region Unity
 
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+        // Ship behaviour
+        ShipBehaviour();
+    }
+
     protected override void OnEnable()
     {
+        // Find player object and track its position
+        _playerPosition = GameObject.Find("Player").transform;
         // Spawning object in specific height
         _enemyShipRecentHealth = _enemyShipHealthInitial;
         base.OnEnable();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    protected void OnTriggerStay2D(Collider2D collision)
     {
-        // Keep distance from other objects
+        // Keep distance from other objects to prevent collision
         if (collision.transform.tag == Globals.ENEMY_TAG)
         {
             _objectRigidbody.AddForce((-(collision.transform.position - transform.position).normalized) * _enemyShipSpeed / 2, ForceMode2D.Force);
@@ -42,6 +52,10 @@ public abstract class BaseEnemyShip : BaseEnemyObject
 
     #region Methods
 
+    // Ship behaviour in the game
+    protected abstract void ShipBehaviour();
+
+    // Hit by player reaction
     protected override void HitByPlayerEffect(Collision2D collision)
     {
         if (collision.gameObject.tag == Globals.PLAYER_BULLET_TAG)
