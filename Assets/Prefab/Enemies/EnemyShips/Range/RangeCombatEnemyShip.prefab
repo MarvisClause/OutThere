@@ -162,14 +162,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da22b98859faafd41bd8aa1108beec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreForKill: 15
   _enemyShipHealthInitial: 2
   _enemyShipSpeed: 3
   _enemyShipDodgeSpeed: 10
   _enemyShipRotationSpeed: 1
   _enemyProjectile: {fileID: 4859727046847546834, guid: bf049350facc3824fa9a0a0a0c1d7e1f, type: 3}
   _reloadTime: 5
-  _minDistToPlayer: 2
-  _maxDistToPlayer: 5
+  _minDistToPlayer: 3
+  _maxDistToPlayer: 6
 --- !u!95 &5668412288428425071
 Animator:
   serializedVersion: 3

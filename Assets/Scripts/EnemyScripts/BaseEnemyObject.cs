@@ -4,14 +4,9 @@ using UnityEngine;
 
 public abstract class BaseEnemyObject : BaseActiveObject
 {
+    // Score for enemy kill
     [SerializeField] protected int _scoreForKill; 
-    //score
-    private ScoreManager sm; 
-    //score
-    private void Start()
-    {
-        sm = FindObjectOfType<ScoreManager>();
-    }
+
     protected virtual void OnEnable()
     {
         // Randomized spawn from map edges
@@ -42,8 +37,6 @@ public abstract class BaseEnemyObject : BaseActiveObject
             || collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG))
         {
             HitByPlayerEffect(collision); 
-            //score
-            sm.AddToScore();
         }
     }
    

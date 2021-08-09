@@ -392,7 +392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: _maxEnemies
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: _enemiesToSpawn.Array.size
@@ -502,6 +502,10 @@ PrefabInstance:
       objectReference: {fileID: 832123211}
     - target: {fileID: 696140563, guid: 3b9061b6f3e3d5842bf883ccad04d02c, type: 3}
       propertyPath: scoreDisplay
+      value: 
+      objectReference: {fileID: 1617178726}
+    - target: {fileID: 696140563, guid: 3b9061b6f3e3d5842bf883ccad04d02c, type: 3}
+      propertyPath: _scoreDisplay
       value: 
       objectReference: {fileID: 1617178726}
     - target: {fileID: 1601389538756656578, guid: 3b9061b6f3e3d5842bf883ccad04d02c, type: 3}
