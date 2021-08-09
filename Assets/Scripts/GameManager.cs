@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     }
     // Player object
     [SerializeField] protected GameObject _player;
-    // Player score
+   
     public int PlayerScore
     {
         get
@@ -135,7 +135,6 @@ public class GameManager : MonoBehaviour
         _player.SetActive(false);
         SpawnManager.GetInstance().DisableAllObjects();
         Time.timeScale = 1.0f;
-    }    
-
+    }
     #endregion
 }
