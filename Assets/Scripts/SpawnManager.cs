@@ -7,8 +7,12 @@ public class SpawnManager : MonoBehaviour
     // Pool types
     public enum PoolType
     {
-        Enemies,
-        SubEnemies, 
+        // Objects to spawn
+        Asteroids,
+        MeleeCombatShips,
+        RangeCombatShips,
+        // Specific objects
+        MiniAsteroids, 
         PlayerBullets
     }
 
@@ -106,7 +110,7 @@ public class SpawnManager : MonoBehaviour
     {
         // Getting index of enemy, we want to spawn
         int spawnIndex = Random.Range(0, _enemiesToSpawn.Count);
-        SpawnObject(PoolType.Enemies, _enemiesToSpawn[spawnIndex]);
+        SpawnObject((PoolType)spawnIndex, _enemiesToSpawn[spawnIndex]);
     }
 
     /// <summary>
@@ -140,7 +144,7 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < pool.Count; i++)
         {
-            if (obj.tag.Equals(pool[i].tag))
+            if (obj.CompareTag(pool[i].tag))
             {
                 if (pool[i].activeSelf == false)
                 {
