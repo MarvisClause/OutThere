@@ -4,7 +4,23 @@ using UnityEngine;
 
 public class RangeCombatEnemyShip : BaseEnemyShip
 {
+    // RangeCombatShip states
+    private enum EnemyRangeShipState
+    {
+        Loaded,
+        Reloading,
+        Shooting
+    }
+
     #region Variables
+
+    // Animator variable
+    private string STATE_ANIMATION_VARIABLE_NAME = "State";
+
+    // Enemy animation
+    private Animator _enemyAnimation;
+    // Enemy state
+    private EnemyRangeShipState _enemyState;
 
     // Projectile, which enemy will use to shoot
     [SerializeField] private GameObject _enemyProjectile;
@@ -14,8 +30,6 @@ public class RangeCombatEnemyShip : BaseEnemyShip
     [SerializeField] private float _minDistToPlayer;
     // Maximum distance to player, after which ship will go forward to player ship
     [SerializeField] private float _maxDistToPlayer;
-    // Is ship reloading
-    protected bool _isReloaded;
 
     #endregion
 
@@ -24,6 +38,8 @@ public class RangeCombatEnemyShip : BaseEnemyShip
     protected override void Awake()
     {
         base.Awake();
+        // Getting animation controller
+        _enemyAnimation = GetComponent<Animator>();
         // Reloading projectile
         Invoke(nameof(ReloadProjectile), _reloadTime);
         // Checking, if min and max dist to player was correctly entered
@@ -58,7 +74,7 @@ public class RangeCombatEnemyShip : BaseEnemyShip
             _objectRigidbody.AddForce(-(_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
         }
         else
-        if(distance > _maxDistToPlayer)
+        if (distance > _maxDistToPlayer)
         {
             // Get closer to the player
             _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
@@ -66,12 +82,17 @@ public class RangeCombatEnemyShip : BaseEnemyShip
 
         // Cast a ray straight down.
         RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up, _playerPosition.position - transform.position);
-        Debug.DrawRay(transform.position + transform.up, _playerPosition.position - transform.position);
-        if (distance < _maxDistToPlayer && _isReloaded == true && hit.collider.CompareTag(Globals.PLAYER_TAG))
+        if (distance < _maxDistToPlayer 
+            && _enemyState == EnemyRangeShipState.Loaded
+            && hit.collider.CompareTag(Globals.PLAYER_TAG))
         {
-            ShootProjectile();
-            Invoke(nameof(ReloadProjectile), _reloadTime);
+            // Changing state to shooting
+            // Unity animator, will call shooting method in the end of the animation
+            _enemyState = EnemyRangeShipState.Shooting;
         }
+
+        // Setting animation state
+        _enemyAnimation.SetInteger(STATE_ANIMATION_VARIABLE_NAME, (int)_enemyState);
     }
 
     // Shoots projectile in front of the ship
@@ -85,14 +106,17 @@ public class RangeCombatEnemyShip : BaseEnemyShip
         // Setting its position and rotation
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
-        // Setting projectile as fired
-        _isReloaded = false;
+        // Changing state to reloading
+        _enemyState = EnemyRangeShipState.Reloading;
+        // Invoke reload method
+        Invoke(nameof(ReloadProjectile), _reloadTime);
     }
 
     // Reloads projectile
     protected void ReloadProjectile()
     {
-        _isReloaded = true;
+        // Change state to loaded
+        _enemyState = EnemyRangeShipState.Loaded;
     }
 
     #endregion
