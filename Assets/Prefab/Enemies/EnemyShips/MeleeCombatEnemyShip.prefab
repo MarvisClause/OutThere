@@ -163,4 +163,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyShipHealthInitial: 3
   _enemyShipSpeed: 2
+  _enemyShipDodgeSpeed: 5
   _enemyShipRotationSpeed: 1.5

@@ -30,8 +30,8 @@ public abstract class BaseEnemyObject : BaseActiveObject
 
     protected override void Hit(Collision2D collision)
     {
-        if (collision.gameObject.tag == Globals.PLAYER_TAG
-           || collision.gameObject.tag == Globals.PLAYER_BULLET_TAG)
+        if (collision.gameObject.CompareTag(Globals.PLAYER_TAG) 
+            || collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG))
         {
             HitByPlayerEffect(collision);
         }

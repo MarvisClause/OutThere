@@ -51,7 +51,7 @@ public class Player : BaseActiveObject
             // Shooting
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Fire();
+                ShootBullet();
             }
         }
     }
@@ -99,7 +99,7 @@ public class Player : BaseActiveObject
     }
 
     // Player fire
-    private void Fire()
+    private void ShootBullet()
     {
         // Setting bullet position and its rotation
         Vector3 bulletPos = transform.position + transform.up;

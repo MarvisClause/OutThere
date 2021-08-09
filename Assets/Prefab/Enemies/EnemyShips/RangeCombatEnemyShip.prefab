@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6322631456980683207}
   - component: {fileID: 7062935766324717663}
   - component: {fileID: -1192939138539718622}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RangeCombatEnemyShip
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -163,7 +163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyShipHealthInitial: 2
   _enemyShipSpeed: 3
+  _enemyShipDodgeSpeed: 10
   _enemyShipRotationSpeed: 1
   _enemyProjectile: {fileID: 4859727046847546834, guid: bf049350facc3824fa9a0a0a0c1d7e1f, type: 3}
+  _reloadTime: 5
   _minDistToPlayer: 2
   _maxDistToPlayer: 5

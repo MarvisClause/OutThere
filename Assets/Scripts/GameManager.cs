@@ -14,6 +14,8 @@ public static class Globals
     public const string ENEMY_TAG = "Enemy";
     // Player bullet tag
     public const string PLAYER_BULLET_TAG = "PlayerBullet";
+    // Player bullet tag
+    public const string ENEMY_BULLET_TAG = "EnemyBullet";
 
     #endregion
 }
