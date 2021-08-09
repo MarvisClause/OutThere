@@ -4,6 +4,14 @@ using UnityEngine;
 
 public abstract class BaseEnemyObject : BaseActiveObject
 {
+    [SerializeField] protected int _scoreForKill; 
+    //score
+    private ScoreManager sm; 
+    //score
+    private void Start()
+    {
+        sm = FindObjectOfType<ScoreManager>();
+    }
     protected virtual void OnEnable()
     {
         // Randomized spawn from map edges
@@ -33,10 +41,12 @@ public abstract class BaseEnemyObject : BaseActiveObject
         if (collision.gameObject.tag == Globals.PLAYER_TAG
            || collision.gameObject.tag == Globals.PLAYER_BULLET_TAG)
         {
-            HitByPlayerEffect(collision);
+            HitByPlayerEffect(collision); 
+            //score
+            sm.AddToScore();
         }
     }
-
+   
     // Method, which decribes, what happes after collision with player or bullet
     protected abstract void HitByPlayerEffect(Collision2D collision);
 }

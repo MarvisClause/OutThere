@@ -11,6 +11,8 @@ public class CanvasButtons : MonoBehaviour
     [SerializeField] protected GameObject _pauseMenu;
     // Main menu
     [SerializeField] protected GameObject _mainMenu;
+    // HUD 
+    [SerializeField] protected GameObject _hud;
 
     #endregion
     
@@ -45,6 +47,7 @@ public class CanvasButtons : MonoBehaviour
     {
         _mainMenu.SetActive(false);
         GameManager.GetInstance().StartGame();
+        _hud.SetActive(true);
     }
     
     // For audio slider in options
@@ -59,6 +62,7 @@ public class CanvasButtons : MonoBehaviour
         if (GameManager.GetInstance().PauseGame() == true)
         {
             _pauseMenu.SetActive(true);
+            _hud.SetActive(false);
         }
     }
 
@@ -67,6 +71,7 @@ public class CanvasButtons : MonoBehaviour
     {
         _pauseMenu.SetActive(false);
         GameManager.GetInstance().PauseGameOff();
+        _hud.SetActive(true);
     }
 
     // Returns scene state to main menu
@@ -74,6 +79,7 @@ public class CanvasButtons : MonoBehaviour
     {
         _pauseMenu.SetActive(false);
         _mainMenu.SetActive(true);
+        _hud.SetActive(false);
         GameManager.GetInstance().BackToMainMenu();
     }
 

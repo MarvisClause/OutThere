@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : BaseActiveObject
 {
@@ -22,6 +23,14 @@ public class Player : BaseActiveObject
     protected bool _isPlayerHit;
     // Player hit cooldown time
     [SerializeField] protected int _afterHitCooldownTime;
+    // Sprite health 
+    [SerializeField] protected Image[] health;
+    // Sprite full heart 
+    [SerializeField] protected Sprite fullHealth;
+    // Sprite empty heart 
+    [SerializeField] protected Sprite emptyHealth;
+    // heel 
+    //[protected int heel;] 
 
     #endregion
 
@@ -109,7 +118,39 @@ public class Player : BaseActiveObject
         // Setting its position and rotation
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
+    } 
+    //
+    private void FixedUpdate()
+    {
+        if (_playerRecentHealth > _playerHealthMaxCapacity)
+        {
+            _playerRecentHealth = _playerHealthMaxCapacity;
+        }
+        //Test heel [_playerRecentHealth *= Time.deltaTime * heel;]
+        //When heart full or not
+        for(int i=0;i<health.Length;i++)
+        {
+            if(i<Mathf.RoundToInt(_playerRecentHealth))
+            {
+                health[i].sprite = fullHealth;
+            }
+            else
+            {
+                health[i].sprite = emptyHealth;
+            }
+            if (i < _playerHealthMaxCapacity)
+            {
+                health[i].enabled = true;
+            }
+            else
+            {
+                health[i].enabled = false;
+            }
+            if (_playerRecentHealth < 1)
+            {
+                Time.timeScale = 0;
+            }
+        }
     }
-
     #endregion
 }
