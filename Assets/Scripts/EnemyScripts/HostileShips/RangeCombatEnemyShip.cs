@@ -40,6 +40,8 @@ public class RangeCombatEnemyShip : BaseEnemyShip
         base.Awake();
         // Getting animation controller
         _enemyAnimation = GetComponent<Animator>();
+        // Setting enemy condition to reloading by default
+        _enemyState = EnemyRangeShipState.Reloading;
         // Reloading projectile
         Invoke(nameof(ReloadProjectile), _reloadTime);
         // Checking, if min and max dist to player was correctly entered
@@ -117,6 +119,7 @@ public class RangeCombatEnemyShip : BaseEnemyShip
     {
         // Change state to loaded
         _enemyState = EnemyRangeShipState.Loaded;
+        CancelInvoke();
     }
 
     #endregion
