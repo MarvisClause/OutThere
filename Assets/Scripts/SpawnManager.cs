@@ -108,8 +108,23 @@ public class SpawnManager : MonoBehaviour
     // Spawns enemy
     private void SpawnEnemy()
     {
-        // Getting index of enemy, we want to spawn
-        int spawnIndex = Random.Range(0, _enemiesToSpawn.Count);
+        int spawnIndex = 0;
+        if (GameManager.GetInstance().IsPlayerActive == true)
+        {
+            // Getting random index of enemy depending on the score
+            int maxIndex = 0;
+            int recentScore = ScoreManager.GetInstance().PlayerScore;
+            if (recentScore > 50 && recentScore < 150)
+            {
+                maxIndex = 2; 
+            }
+            else
+                if (recentScore > 150)
+            {
+                maxIndex = 3;
+            }
+            spawnIndex = Random.Range(0, maxIndex);
+        }
         SpawnObject((PoolType)spawnIndex, _enemiesToSpawn[spawnIndex]);
     }
 

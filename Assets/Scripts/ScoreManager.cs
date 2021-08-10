@@ -20,7 +20,8 @@ public class ScoreManager : MonoBehaviour
     }
 
     // Player score
-    private int _score;
+    private int _playerScore;
+    public int PlayerScore { get { return _playerScore; } }
     // Interface
     [SerializeField] protected Text _scoreDisplay;
     [SerializeField] protected GameObject _mainMenu;
@@ -37,10 +38,10 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        _scoreDisplay.text = "Score : " + _score.ToString();
+        _scoreDisplay.text = "Score : " + _playerScore.ToString();
         if (_mainMenu.activeSelf == true)
         {
-            _score = 0;
+            _playerScore = 0;
         }   
     }
 
@@ -51,7 +52,7 @@ public class ScoreManager : MonoBehaviour
     // Add number to score
     public void AddToScore(int toAdd)
     {
-        _score += toAdd;
+        _playerScore += toAdd;
     }
 
     #endregion

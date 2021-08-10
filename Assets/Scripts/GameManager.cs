@@ -44,22 +44,7 @@ public class GameManager : MonoBehaviour
     }
     // Player object
     [SerializeField] protected GameObject _player;
-   
-    public int PlayerScore
-    {
-        get
-        {
-            return _playerScore;
-        }
-        set
-        {
-            if (value > 0)
-            {
-                _playerScore = value;
-            }
-        }
-    }
-    private int _playerScore;
+    public bool IsPlayerActive { get { return _player.activeSelf; } }
 
     #endregion
 
@@ -69,13 +54,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _instance = this;
-        PlayerScore = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     #endregion
@@ -93,8 +71,6 @@ public class GameManager : MonoBehaviour
         _player.transform.rotation = new Quaternion(0, 0, 0, 0);
         // Setting his position to vector zero
         _player.transform.position = Vector3.zero;
-        // Setting player score to zero
-        PlayerScore = 0;
         // Setting time scale to one in case of its being frozen
         Time.timeScale = 1.0f;
         // Setting pause state to false
