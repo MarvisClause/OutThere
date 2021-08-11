@@ -49,12 +49,6 @@ public class CanvasButtons : MonoBehaviour
         GameManager.GetInstance().StartGame();
         _hud.SetActive(true);
     }
-    
-    // For audio slider in options
-    public void MusicVolume(float volume) 
-    {
-        GameManager.GetInstance().MusicVolume(volume);
-    } 
 
     // Pauses game
     public void PauseGame()

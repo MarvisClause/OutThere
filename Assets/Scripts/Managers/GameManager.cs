@@ -90,12 +90,6 @@ public class GameManager : MonoBehaviour
         _isOnPause = false;
     }
 
-    // For audio slider in options
-    public void MusicVolume(float volume)
-    {
-        // Changing volume of audiosource
-    }
-
     // Pauses game
     public bool PauseGame()
     {

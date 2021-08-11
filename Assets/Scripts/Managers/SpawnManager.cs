@@ -125,6 +125,10 @@ public class SpawnManager : MonoBehaviour
             }
             spawnIndex = Random.Range(0, maxIndex);
         }
+        if (spawnIndex >= _enemiesToSpawn.Count)
+        {
+            spawnIndex = _enemiesToSpawn.Count - 1;
+        }
         SpawnObject((PoolType)spawnIndex, _enemiesToSpawn[spawnIndex]);
     }
 

@@ -27,6 +27,8 @@ public class SoundManager : MonoBehaviour
 
     #region Variables
 
+    // Main sound for volume changes
+    [SerializeField] private AudioMixerGroup _masterMixer;
     // Sounds
     [SerializeField] private Sound[] _sounds; 
     // Singleton
@@ -78,7 +80,7 @@ public class SoundManager : MonoBehaviour
         return null;
     }
 
-    // Play entered name one time
+    // Plays entered sound
     public void PlaySound(string soundName, bool isLoop = false)
     {
         // Find sound
@@ -92,6 +94,7 @@ public class SoundManager : MonoBehaviour
         soundToPlay.audioSource.Play();
     }
 
+    // Stops enetered sound
     public void StopSound(string soundName)
     {
         // Find sound
@@ -102,6 +105,12 @@ public class SoundManager : MonoBehaviour
         }
         // Stop sound
         soundToPlay.audioSource.Stop();
+    }
+
+    // Changes master volume
+    public void ChangeMasterVolume(float newVolume)
+    {
+        _masterMixer.audioMixer.SetFloat("volume", newVolume);
     }
 
     #endregion
