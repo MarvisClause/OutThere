@@ -7,6 +7,7 @@ public class Player : BaseActiveObject
 {
     #region Variables
 
+    [Header("Player characteristics")]
     // Player max health 
     [SerializeField] private int _playerHealthMaxCapacity;
     // Player health for game session
@@ -17,20 +18,24 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerRotationSpeed;
     // Player hit force
     [SerializeField] private float _playerHitForce;
+    
+    [Header("Player bullet")]
     // Player bullet
-    [SerializeField] protected GameObject _playerProjectile;
+    [SerializeField] private GameObject _playerProjectile;
     // Is player hit
     protected bool _isPlayerHit;
+
+    [Header("Player hit detection")]
     // Player hit cooldown time
-    [SerializeField] protected int _afterHitCooldownTime;
+    [SerializeField] private int _afterHitCooldownTime;
     // Sprite health 
-    [SerializeField] protected Image[] health;
+    [SerializeField] private Image[] health;
     // Sprite full heart 
-    [SerializeField] protected Sprite fullHealth;
+    [SerializeField] private Sprite fullHealth;
     // Sprite empty heart 
-    [SerializeField] protected Sprite emptyHealth;
-    // heel 
-    //[protected int heel;] 
+    [SerializeField] private Sprite emptyHealth;
+    // heal 
+    //[protected int heal;] 
 
     #endregion
 
@@ -52,7 +57,7 @@ public class Player : BaseActiveObject
         // This is temporary method of checking if game is on pause.
         // Might be better to make it event based.
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (GameManager.GetInstance().IsOnPause == false)
+        if (GameManager.GetInstance().IsOnPause == false && _playerRecentHealth > 0)
         {
             base.Update();
             // Moving
@@ -89,6 +94,8 @@ public class Player : BaseActiveObject
         // Checking if player was hit or not
         if (_isPlayerHit == false)
         {
+            // Play hit sound
+            SoundManager.GetInstance().PlaySound(Globals.PLAYER_HIT_SOUND);
             // Was player hit
             _isPlayerHit = true;
             // Decrease player health

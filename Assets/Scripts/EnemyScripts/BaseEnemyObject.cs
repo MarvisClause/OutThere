@@ -4,8 +4,14 @@ using UnityEngine;
 
 public abstract class BaseEnemyObject : BaseActiveObject
 {
+    #region Variables
+
     // Score for enemy kill
-    [SerializeField] protected int _scoreForKill; 
+    [SerializeField] protected int _scoreForKill;
+
+    #endregion
+
+    #region Unity
 
     protected virtual void OnEnable()
     {
@@ -31,15 +37,24 @@ public abstract class BaseEnemyObject : BaseActiveObject
         }
     }
 
+    #endregion
+
+    #region Methods
+
     protected override void Hit(Collision2D collision)
     {
         if (collision.gameObject.CompareTag(Globals.PLAYER_TAG) 
             || collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG))
         {
-            HitByPlayerEffect(collision); 
+            // Play hit sound
+            SoundManager.GetInstance().PlaySound(Globals.ENEMY_HIT_SOUND);
+            // Execute effect
+            HitByPlayerEffect(collision);
         }
     }
    
     // Method, which decribes, what happes after collision with player or bullet
     protected abstract void HitByPlayerEffect(Collision2D collision);
+
+    #endregion
 }

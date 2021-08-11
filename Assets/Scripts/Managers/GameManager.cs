@@ -18,6 +18,17 @@ public static class Globals
     public const string ENEMY_BULLET_TAG = "EnemyBullet";
 
     #endregion
+
+    #region SoundNames
+
+    // Enemy is hit sound
+    public const string ENEMY_HIT_SOUND = "EnemyHit";
+    // Player is hit sound
+    public const string PLAYER_HIT_SOUND = "PlayerHit";
+    // Background music sound
+    public const string BACKGROUND_MUSIC = "BackgroundMusic";
+
+    #endregion
 }
 
 public class GameManager : MonoBehaviour
@@ -54,6 +65,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _instance = this;
+        // Play background music in loop
+        SoundManager.GetInstance().PlaySound(Globals.BACKGROUND_MUSIC, true);
     }
 
     #endregion
