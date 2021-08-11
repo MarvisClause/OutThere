@@ -6,6 +6,8 @@ public class ProjectileController : BaseActiveObject
 {
     #region Variables
 
+    // Hit effect
+    [SerializeField] protected GameObject _hitEffect;
     // Projectile speed
     [SerializeField]protected float _projectileSpeed;
     // Variable for checking if bullet was shot 
@@ -43,6 +45,14 @@ public class ProjectileController : BaseActiveObject
 
     protected override void Hit(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag(Globals.ENEMY_BULLET_TAG)
+            || collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG)
+            || collision.gameObject.CompareTag(Globals.PLAYER_TAG))
+        {
+            GameObject effect = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.BulletHitEffect, _hitEffect);
+            effect.transform.position = transform.position;
+            effect.transform.rotation = transform.rotation;
+        }
         gameObject.SetActive(false);
     }
 

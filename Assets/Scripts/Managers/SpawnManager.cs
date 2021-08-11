@@ -14,7 +14,8 @@ public class SpawnManager : MonoBehaviour
         // Specific objects
         MiniAsteroids, 
         PlayerBullets,
-        EnemyHitEffect
+        EnemyHitEffect,
+        BulletHitEffect
     }
 
     #region Variables
