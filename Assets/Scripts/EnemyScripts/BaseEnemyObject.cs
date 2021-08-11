@@ -6,6 +6,8 @@ public abstract class BaseEnemyObject : BaseActiveObject
 {
     #region Variables
 
+    // Enemy hit effect
+    [SerializeField] protected GameObject _enemyHitEffect;
     // Score for enemy kill
     [SerializeField] protected int _scoreForKill;
 
@@ -46,6 +48,10 @@ public abstract class BaseEnemyObject : BaseActiveObject
         if (collision.gameObject.CompareTag(Globals.PLAYER_TAG) 
             || collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG))
         {
+            // Spawn effect
+            GameObject effect = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.EnemyHitEffect, _enemyHitEffect);
+            effect.transform.position = transform.position;
+            effect.transform.rotation = transform.rotation;
             // Play hit sound
             SoundManager.GetInstance().PlaySound(Globals.ENEMY_HIT_SOUND);
             // Execute effect

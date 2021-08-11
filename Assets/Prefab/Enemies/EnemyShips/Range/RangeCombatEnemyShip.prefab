@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da22b98859faafd41bd8aa1108beec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyHitEffect: {fileID: 8410181166214511092, guid: bee85290661c15c48b0e9171acc72646, type: 3}
   _scoreForKill: 20
   _enemyShipHealthInitial: 2
   _enemyShipSpeed: 3

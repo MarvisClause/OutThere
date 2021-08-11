@@ -13,7 +13,8 @@ public class SpawnManager : MonoBehaviour
         RangeCombatShips,
         // Specific objects
         MiniAsteroids, 
-        PlayerBullets
+        PlayerBullets,
+        EnemyHitEffect
     }
 
     #region Variables
