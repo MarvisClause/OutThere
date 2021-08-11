@@ -125,7 +125,7 @@ public class SpawnManager : MonoBehaviour
             {
                 // When score reaches this condition, we add new type of enemy
                 if (recentScore % _newEnemyMultipleValue == 0
-                    && _maxSpawnIndex < _enemiesToSpawn.Count - 1
+                    && _maxSpawnIndex < _enemiesToSpawn.Count
                     && _lastNewEnemyScore != recentScore)
                 {
                     _maxSpawnIndex++;

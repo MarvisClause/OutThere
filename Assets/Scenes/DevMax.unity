@@ -480,7 +480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: _newEnemyMultipleValue
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: _newMaxEnemyAliquotValue
