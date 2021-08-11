@@ -335,6 +335,14 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6531488122918279700, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531488122918279700, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531488122918279700, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -463,6 +471,22 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _initialMaxEnemies
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _newEnemyAliquotValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _newEnemyMultipleValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _newMaxEnemyAliquotValue
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: _enemiesToSpawn.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -478,6 +502,14 @@ PrefabInstance:
       propertyPath: _enemiesToSpawn.Array.data[2]
       value: 
       objectReference: {fileID: 1805464642012237488, guid: ee1b3177db70a9b4c9a44964318d99c2, type: 3}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _newMaxQuantityOfEnemyAliquotValue
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _newMaxQuantityOfEnemyMultipleValue
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816124, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: m_Name
       value: SpawnManager

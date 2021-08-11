@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57f6f6d1a3886e44934f06569e81da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreForKill: 10
+  _scoreForKill: 15
   _enemyShipHealthInitial: 3
   _enemyShipSpeed: 2
   _enemyShipDodgeSpeed: 5
