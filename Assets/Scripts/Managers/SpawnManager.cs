@@ -151,7 +151,7 @@ public class SpawnManager : MonoBehaviour
         {
             // This amount of enemies is used for main menu showcase.
             // It is more for visual appearance, rather than gameplay
-            _recentMaxEnemies = 15;
+            _recentMaxEnemies = 25;
         }
         if (ActiveEnemiesCounter < _recentMaxEnemies)
         {

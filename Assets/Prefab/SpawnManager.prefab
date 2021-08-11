@@ -44,7 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemiesToSpawn:
+  - {fileID: 1882411347725167058, guid: edd976f2b376edf48aed4f7414b7b657, type: 3}
+  - {fileID: 1805464642012237488, guid: 407a4b0a84c44644ab152403b18b5a70, type: 3}
   - {fileID: 1805464642012237488, guid: ee1b3177db70a9b4c9a44964318d99c2, type: 3}
-  _maxEnemies: 8
+  _initialMaxEnemies: 3
   _timeToRandomlySpawnFrom: 3
   _timeToRandomlySpawnTo: 6
+  _newEnemyMultipleValue: 200
+  _newMaxQuantityOfEnemyMultipleValue: 50

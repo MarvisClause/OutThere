@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0854dadd7e39f68469a6bd2e2f6defb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _masterMixer: {fileID: 24300002, guid: d4824b41aa6329f4c801b01e0d8c31d7, type: 2}
   _sounds:
   - name: EnemyHit
     audioClip: {fileID: 8300000, guid: f0dbfe7a54e9b78478242dc7a381f41e, type: 3}
