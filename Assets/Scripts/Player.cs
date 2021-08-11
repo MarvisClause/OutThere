@@ -23,7 +23,8 @@ public class Player : BaseActiveObject
     // Player bullet
     [SerializeField] private GameObject _playerProjectile;
     // Is player hit
-    protected bool _isPlayerHit;
+    private bool _isPlayerHit;
+    public bool IsPlayerHit { get { return _isPlayerHit; } }
 
     [Header("Player hit detection")]
     // Player hit cooldown time
@@ -53,19 +54,18 @@ public class Player : BaseActiveObject
     // Update is called once per frame
     protected override void Update()
     {
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // This is temporary method of checking if game is on pause.
-        // Might be better to make it event based.
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (GameManager.GetInstance().IsOnPause == false && _playerRecentHealth > 0)
         {
             base.Update();
             // Moving
             Movement();
             // Shooting
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (!IsPlayerHit)
             {
-                ShootBullet();
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    ShootBullet();
+                }
             }
         }
     }

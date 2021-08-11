@@ -54,8 +54,11 @@ public class GameManager : MonoBehaviour
         get { return _isOnPause; }
     }
     // Player object
-    [SerializeField] protected GameObject _player;
+    [SerializeField] private GameObject _player;
+    // Player script
+    private Player _playerScript;
     public bool IsPlayerActive { get { return _player.activeSelf; } }
+    public bool IsPlayerInvincible { get { return _playerScript.IsPlayerHit; } }
 
     #endregion
 
@@ -65,6 +68,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _instance = this;
+        // Get player script
+        _playerScript = _player.GetComponent<Player>();
         // Play background music in loop
         SoundManager.GetInstance().PlaySound(Globals.BACKGROUND_MUSIC, true);
     }

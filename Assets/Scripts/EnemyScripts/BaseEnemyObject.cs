@@ -48,17 +48,21 @@ public abstract class BaseEnemyObject : BaseActiveObject
         if (collision.gameObject.CompareTag(Globals.PLAYER_TAG) 
             || collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG))
         {
-            // Spawn effect
-            GameObject effect = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.EnemyHitEffect, _enemyHitEffect);
-            effect.transform.position = transform.position;
-            effect.transform.rotation = transform.rotation;
-            // Play hit sound
-            SoundManager.GetInstance().PlaySound(Globals.ENEMY_HIT_SOUND);
-            // Execute effect
-            HitByPlayerEffect(collision);
+            // Checking, if player is invincible
+            if (!GameManager.GetInstance().IsPlayerInvincible)
+            {
+                // Spawn effect
+                GameObject effect = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.EnemyHitEffect, _enemyHitEffect);
+                effect.transform.position = transform.position;
+                effect.transform.rotation = transform.rotation;
+                // Play hit sound
+                SoundManager.GetInstance().PlaySound(Globals.ENEMY_HIT_SOUND);
+                // Execute effect
+                HitByPlayerEffect(collision);
+            }
+            }
         }
-    }
-   
+
     // Method, which decribes, what happes after collision with player or bullet
     protected abstract void HitByPlayerEffect(Collision2D collision);
 
