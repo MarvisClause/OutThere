@@ -25,8 +25,12 @@ public static class Globals
     public const string ENEMY_HIT_SOUND = "EnemyHit";
     // Player is hit sound
     public const string PLAYER_HIT_SOUND = "PlayerHit";
+    // Player fire sound
+    public const string PLAYER_FIRE = "PlayerFire";
     // Background music sound
     public const string BACKGROUND_MUSIC = "BackgroundMusic";
+    // Enemy ship reload sound
+    public const string ENEMY_SHIP_FIRE = "EnemyShipFire";
 
     #endregion
 }

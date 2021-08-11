@@ -105,6 +105,8 @@ public class SpawnManager : MonoBehaviour
         _maxSpawnIndex = 1;
         // Resetting recent enemy quant value
         _recentMaxEnemies = _initialMaxEnemies;
+        // Reseting last scores
+        _lastNewEnemyScore = _lastNewMaxEnemyQuantityScore = 0;
         // Iterate through each pool
         for (int poolIteration = 0; poolIteration < _pools.Count; poolIteration++)
         {
@@ -122,26 +124,21 @@ public class SpawnManager : MonoBehaviour
         if (GameManager.GetInstance().IsPlayerActive == true)
         {
             int recentScore = ScoreManager.GetInstance().PlayerScore;
-            // Progression system
-            if (recentScore != 0)
+            // When score reaches this condition, we add new type of enemy
+            if (recentScore > _newEnemyMultipleValue + _lastNewEnemyScore
+                && _maxSpawnIndex < _enemiesToSpawn.Count)
             {
-                // When score reaches this condition, we add new type of enemy
-                if (recentScore % _newEnemyMultipleValue == 0
-                    && _maxSpawnIndex < _enemiesToSpawn.Count
-                    && _lastNewEnemyScore != recentScore)
-                {
-                    _maxSpawnIndex++;
-                    _lastNewEnemyScore = recentScore;
-                    Debug.Log("Increase max spawn index to " + _maxSpawnIndex);
-                }
-                // When score reaches this condition, we increase max amount of enemies on screen
-                if (recentScore % _newMaxQuantityOfEnemyMultipleValue == 0
-                    && _lastNewMaxEnemyQuantityScore != recentScore)
-                {
-                    _recentMaxEnemies++;
-                    _lastNewMaxEnemyQuantityScore = recentScore;
-                    Debug.Log("Increase max amount of enemies to " + _recentMaxEnemies);
-                }
+                _maxSpawnIndex++;
+                _lastNewEnemyScore = recentScore;
+                Debug.Log("Increase max spawn index to " + _maxSpawnIndex);
+            }
+            // When score reaches this condition, we increase max amount of enemies on screen
+            if (recentScore > _newMaxQuantityOfEnemyMultipleValue + _lastNewMaxEnemyQuantityScore
+                && _lastNewMaxEnemyQuantityScore != recentScore)
+            {
+                _recentMaxEnemies++;
+                _lastNewMaxEnemyQuantityScore = recentScore;
+                Debug.Log("Increase max amount of enemies to " + _recentMaxEnemies);
             }
         }
     }

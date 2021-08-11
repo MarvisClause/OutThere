@@ -64,6 +64,8 @@ public class Player : BaseActiveObject
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    // Fire sound
+                    SoundManager.GetInstance().PlaySound(Globals.PLAYER_FIRE);
                     ShootBullet();
                 }
             }

@@ -91,6 +91,8 @@ public class RangeCombatEnemyShip : BaseEnemyShip
             // Changing state to shooting
             // Unity animator, will call shooting method in the end of the animation
             _enemyState = EnemyRangeShipState.Shooting;
+            // Shoot sound
+            SoundManager.GetInstance().PlaySound(Globals.ENEMY_SHIP_FIRE);
         }
 
         // Setting animation state
