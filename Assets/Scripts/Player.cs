@@ -29,8 +29,9 @@ public class Player : BaseActiveObject
     [SerializeField] protected Sprite fullHealth;
     // Sprite empty heart 
     [SerializeField] protected Sprite emptyHealth;
-    // heel 
-    //[protected int heel;] 
+    // Heal 
+    //public int heal;  
+    Animator animator;
 
     #endregion
 
@@ -39,6 +40,7 @@ public class Player : BaseActiveObject
     // On player enable
     protected void OnEnable()
     {
+        animator = GetComponent<Animator>();
         // Setting player hit condition to false
         _isPlayerHit = false;
         // Setting player health back to maximum value
@@ -79,6 +81,20 @@ public class Player : BaseActiveObject
         _objectRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
         // Rotating
         transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
+        //Animation  
+        if (animator)
+        {
+            if (horizontalInput+ verticalInput > 0)
+            {
+                animator.SetBool("Fly",true);
+            }
+            else
+            {
+                animator.SetBool("Fly", false);
+            }
+            //animator.SetBool("Fly", Mathf.Abs(horizontalInput+verticalInput) > 0f);
+        }
+        
     }
 
     // Object reaction to being hit
@@ -121,12 +137,13 @@ public class Player : BaseActiveObject
     } 
     //
     private void FixedUpdate()
-    {
+    { //Heath system
         if (_playerRecentHealth > _playerHealthMaxCapacity)
         {
             _playerRecentHealth = _playerHealthMaxCapacity;
         }
-        //Test heel [_playerRecentHealth *= Time.deltaTime * heel;]
+        //Test heel
+        //_playerRecentHealth *= Time.deltaTime * heal;
         //When heart full or not
         for(int i=0;i<health.Length;i++)
         {
@@ -148,7 +165,7 @@ public class Player : BaseActiveObject
             }
             if (_playerRecentHealth < 1)
             {
-                Time.timeScale = 0;
+                GameManager.GetInstance().GameOver(); 
             }
         }
     }

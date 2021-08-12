@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 // Class for holding global variables
 public static class Globals
@@ -42,7 +43,12 @@ public class GameManager : MonoBehaviour
     }
     // Player object
     [SerializeField] protected GameObject _player;
-   
+    [SerializeField] protected GameObject _gameOverScreen;
+    [SerializeField] protected GameObject _hud;
+    [SerializeField] protected Text _score;  
+    protected string _username;
+
+
     public int PlayerScore
     {
         get
@@ -118,7 +124,12 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
-
+    // Input menu 
+    public bool InputWindow()
+    { 
+        
+        return false;
+    }
     // Unpause game
     public void PauseGameOff()
     {
@@ -133,6 +144,28 @@ public class GameManager : MonoBehaviour
         _player.SetActive(false);
         SpawnManager.GetInstance().DisableAllObjects();
         Time.timeScale = 1.0f;
+    } 
+    public void GameOver()
+    {   // Disable all objects on screen
+        SpawnManager.GetInstance().DisableAllObjects();
+        // Deactivating player
+        _player.SetActive(false);
+        // Deactivating HUD 
+        _hud.SetActive(false);
+        // Activating Game over screen  
+        _gameOverScreen.SetActive(true);
+        //Add score to the game over screen 
+        _score.text = "Score :" + _playerScore.ToString();
+    } 
+    // Read input text
+    public void ReadName(string inputName)
+    {
+        _username = inputName;
+        Debug.Log(_username);
+    } 
+    public void Submit()
+    {
+        //HighscoreTable.AddHighscoreEntry(_playerScore,_username);
     }
     #endregion
 }

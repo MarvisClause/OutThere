@@ -11,11 +11,13 @@ public class CanvasButtons : MonoBehaviour
     [SerializeField] protected GameObject _pauseMenu;
     // Main menu
     [SerializeField] protected GameObject _mainMenu;
+    // Input menu 
+    [SerializeField] protected GameObject _inputWindow;
     // HUD 
     [SerializeField] protected GameObject _hud;
 
     #endregion
-    
+
     #region Unity  
 
     public void Start()
@@ -30,18 +32,18 @@ public class CanvasButtons : MonoBehaviour
             PauseGame();
         }
     }
-    
-    #endregion 
+
+    #endregion
 
     #region Methods
 
     //Button for Quit
     public void Quit()
-    {  
+    {
         // Quit the game
         Application.Quit();
-    } 
-    
+    }
+
     // Starts the game
     public void StartTheGame()
     {
@@ -49,12 +51,12 @@ public class CanvasButtons : MonoBehaviour
         GameManager.GetInstance().StartGame();
         _hud.SetActive(true);
     }
-    
+
     // For audio slider in options
-    public void MusicVolume(float volume) 
+    public void MusicVolume(float volume)
     {
         GameManager.GetInstance().MusicVolume(volume);
-    } 
+    }
 
     // Pauses game
     public void PauseGame()
@@ -65,7 +67,6 @@ public class CanvasButtons : MonoBehaviour
             _hud.SetActive(false);
         }
     }
-
     // For pause game 
     public void PauseGameOff()
     {
@@ -82,6 +83,5 @@ public class CanvasButtons : MonoBehaviour
         _hud.SetActive(false);
         GameManager.GetInstance().BackToMainMenu();
     }
-
     #endregion
 }

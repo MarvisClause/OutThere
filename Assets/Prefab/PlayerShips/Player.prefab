@@ -150,3 +150,6 @@ MonoBehaviour:
   _playerHitForce: 4
   _playerProjectile: {fileID: 4859727046847546834, guid: 471d49208cbadfc4c82bcafe7930052c, type: 3}
   _afterHitCooldownTime: 3
+  health: []
+  fullHealth: {fileID: 0}
+  emptyHealth: {fileID: 0}
