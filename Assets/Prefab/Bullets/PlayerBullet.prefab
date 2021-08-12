@@ -144,4 +144,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3e90e5a1297844590d6b559d8c68c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitEffect: {fileID: 8410181166214511092, guid: 38438d25f7681164e900acc2d1c2eedc, type: 3}
   _projectileSpeed: 15

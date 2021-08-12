@@ -134,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3557b1db226155b42962732980070f7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyHitEffect: {fileID: 8410181166214511092, guid: bee85290661c15c48b0e9171acc72646, type: 3}
+  _scoreForKill: 5
   _asteroidSprites:
   - {fileID: 21300000, guid: 22479bda33c7f78448032ac32dc4dbcd, type: 3}
   - {fileID: 21300000, guid: 4fb34a28885f5f84495a427a8ecc21ea, type: 3}

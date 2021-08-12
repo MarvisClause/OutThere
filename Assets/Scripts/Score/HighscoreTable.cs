@@ -9,18 +9,10 @@ public class HighscoreTable : MonoBehaviour
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
 
-    private static HighscoreTable _instance;
-   /* public static HighscoreTable GetInstance()
-    {
-        if (_instance == null)
-        {
-            Debug.LogWarning("Instance of HighscoreTable is null referenced!");
-            throw new System.Exception("Instance of HighscoreTable is null referenced!");
-        }
-        return _instance;
-    }*/
+    public static HighscoreTable _instance;
     private void Awake()
     {
+        _instance = this;
         //highscoreEntryList = new List<HighscoreEntry>();
         
         entryContainer = transform.Find("Score_Entry_Container");

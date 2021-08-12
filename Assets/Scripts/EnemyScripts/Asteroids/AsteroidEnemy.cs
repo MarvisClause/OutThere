@@ -53,7 +53,7 @@ public class AsteroidEnemy : AsteroidBaseEnemy
             for (int i = 0; i < randomCrackedAsteroids; i++)
             {
                 // Spawning asteroids 
-                crackedAsteroid = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.SubEnemies,
+                crackedAsteroid = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.MiniAsteroids,
                     _asteroidCrackedPrefabs[Random.Range(0, _asteroidCrackedPrefabs.Count)]);
                 crackedAsteroid.transform.position = transform.position;
                 SpawnManager.GetInstance().ActiveEnemiesCounter++;

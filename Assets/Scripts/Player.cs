@@ -7,6 +7,7 @@ public class Player : BaseActiveObject
 {
     #region Variables
 
+    [Header("Player characteristics")]
     // Player max health 
     [SerializeField] private int _playerHealthMaxCapacity;
     // Player health for game session
@@ -17,20 +18,24 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerRotationSpeed;
     // Player hit force
     [SerializeField] private float _playerHitForce;
+    
+    [Header("Player bullet")]
     // Player bullet
-    [SerializeField] protected GameObject _playerProjectile;
+    [SerializeField] private GameObject _playerProjectile;
     // Is player hit
-    protected bool _isPlayerHit;
+    private bool _isPlayerHit;
+    public bool IsPlayerHit { get { return _isPlayerHit; } }
+
+    [Header("Player hit detection")]
     // Player hit cooldown time
-    [SerializeField] protected int _afterHitCooldownTime;
+    [SerializeField] private int _afterHitCooldownTime;
     // Sprite health 
-    [SerializeField] protected Image[] health;
+    [SerializeField] private Image[] health;
     // Sprite full heart 
-    [SerializeField] protected Sprite fullHealth;
+    [SerializeField] private Sprite fullHealth;
     // Sprite empty heart 
     [SerializeField] protected Sprite emptyHealth;
-    // Heal 
-    //public int heal;  
+    // Animator  
     Animator animator;
 
     #endregion
@@ -50,19 +55,20 @@ public class Player : BaseActiveObject
     // Update is called once per frame
     protected override void Update()
     {
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // This is temporary method of checking if game is on pause.
-        // Might be better to make it event based.
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        if (GameManager.GetInstance().IsOnPause == false)
+        if (GameManager.GetInstance().IsOnPause == false && _playerRecentHealth > 0)
         {
             base.Update();
             // Moving
             Movement();
             // Shooting
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (!IsPlayerHit)
             {
-                Fire();
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    // Fire sound
+                    SoundManager.GetInstance().PlaySound(Globals.PLAYER_FIRE);
+                    ShootBullet();
+                }
             }
         }
     }
@@ -105,6 +111,8 @@ public class Player : BaseActiveObject
         // Checking if player was hit or not
         if (_isPlayerHit == false)
         {
+            // Play hit sound
+            SoundManager.GetInstance().PlaySound(Globals.PLAYER_HIT_SOUND);
             // Was player hit
             _isPlayerHit = true;
             // Decrease player health
@@ -124,7 +132,7 @@ public class Player : BaseActiveObject
     }
 
     // Player fire
-    private void Fire()
+    private void ShootBullet()
     {
         // Setting bullet position and its rotation
         Vector3 bulletPos = transform.position + transform.up;
@@ -169,5 +177,6 @@ public class Player : BaseActiveObject
             }
         }
     }
+
     #endregion
 }

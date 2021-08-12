@@ -156,6 +156,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae30dc17f00670441acc5f35ddb72530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  scoreDisplay: {fileID: 0}
+  _scoreDisplay: {fileID: 0}
   _mainMenu: {fileID: 0}

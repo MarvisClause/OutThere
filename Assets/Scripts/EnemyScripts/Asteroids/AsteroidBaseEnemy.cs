@@ -69,6 +69,7 @@ public abstract class AsteroidBaseEnemy : BaseEnemyObject
     {
         SpawnManager.GetInstance().ActiveEnemiesCounter--;
         gameObject.SetActive(false);
+        ScoreManager.GetInstance().AddToScore(_scoreForKill);
     }
 
     #endregion

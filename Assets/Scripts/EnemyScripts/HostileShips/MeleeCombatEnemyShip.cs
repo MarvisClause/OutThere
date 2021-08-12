@@ -4,38 +4,14 @@ using UnityEngine;
 
 public class MeleeCombatEnemyShip : BaseEnemyShip
 {
-    #region Variables
-
-
-    #endregion
-
-    #region Unity
-
-    // Awake is called in initialization phase
-    protected override void Awake()
-    {
-        _playerPosition = GameObject.Find("Player").transform;
-        base.Awake();
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-        Move();
-    }
-
-    #endregion
-
     #region Methods
 
     // Enemy ship moving
-    protected void Move()
+    protected override void ShipBehaviour()
     {
         // Add force to move towards object
         _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
         // Rotate towards player
-
         // Calculate direction = destination - source
         Vector3 direction = _playerPosition.position - transform.position;
         // Calculate the angle using the inverse tangent method
