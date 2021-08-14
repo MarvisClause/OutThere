@@ -14,7 +14,9 @@ public class CanvasButtons : MonoBehaviour
     // Input menu 
     [SerializeField] protected GameObject _inputWindow;
     // HUD 
-    [SerializeField] protected GameObject _hud;
+    [SerializeField] protected GameObject _hud; 
+    // Gameover
+    [SerializeField] protected GameObject _gameover;
 
     #endregion
 
@@ -46,7 +48,7 @@ public class CanvasButtons : MonoBehaviour
 
     // Starts the game
     public void StartTheGame()
-    {
+    { 
         _mainMenu.SetActive(false);
         GameManager.GetInstance().StartGame();
         _hud.SetActive(true);
@@ -74,7 +76,20 @@ public class CanvasButtons : MonoBehaviour
         _pauseMenu.SetActive(false);
         _mainMenu.SetActive(true);
         _hud.SetActive(false);
-        GameManager.GetInstance().BackToMainMenu();
+        _gameover.SetActive(false);
+        GameManager.GetInstance().BackToMainMenu(); 
+
+    }
+    // Read input text
+    public void ReadName(string inputName)
+    {
+        GameManager.GetInstance().Username = string.Copy(inputName); 
+    }
+    public void Submit()
+    {
+        //Save name and score in High Score table
+        HighscoreTable._instance.AddHighscoreEntry(ScoreManager.GetInstance().PlayerScore,GameManager.GetInstance().TimeResult, GameManager.GetInstance().Username);
+        HighscoreTable._instance.UpdateHighscoreTable();
     }
     #endregion
 }

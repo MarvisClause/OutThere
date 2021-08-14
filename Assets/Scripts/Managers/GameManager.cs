@@ -62,8 +62,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] protected GameObject _player;
     [SerializeField] protected GameObject _gameOverScreen;
     [SerializeField] protected GameObject _hud;
-    [SerializeField] protected Text _score;  
+    [SerializeField] protected Text _scoreResGameOver;
+    [SerializeField] protected Text _timeResGameOver;
     protected string _username;
+    //Time
+    protected TimeRes _timeResult;
+    [SerializeField] Text _time;
+     
+    public string Username { get { return _username; } set { _username = value; } }
+    public TimeRes TimeResult { get { return _timeResult; } }  
 
     // Player script
     private Player _playerScript;
@@ -84,6 +91,15 @@ public class GameManager : MonoBehaviour
         SoundManager.GetInstance().PlaySound(Globals.BACKGROUND_MUSIC, true);
     }
 
+    private void FixedUpdate()
+    {
+        if (_player.activeSelf == true)
+        {
+          Timer(); 
+        }
+        
+        
+    }
     #endregion
 
     #region Methods
@@ -103,6 +119,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         // Setting pause state to false
         _isOnPause = false;
+       
     }
 
     // Pauses game
@@ -114,6 +131,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             // Setting pause state to false
             _isOnPause = true;
+            
             return true;
         }
         return false;
@@ -124,6 +142,7 @@ public class GameManager : MonoBehaviour
         _isOnPause = false;
         _player.SetActive(true);
         Time.timeScale = 1.0f;
+       
     }
 
     // Disables everything on scene to return it to the state of main menu
@@ -131,9 +150,12 @@ public class GameManager : MonoBehaviour
     {
         _player.SetActive(false);
         SpawnManager.GetInstance().DisableAllObjects();
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1.0f; 
+        //Reset time
+        _timeResult.ResetTime();
     } 
-    public void GameOver() 
+    public void GameOver()  
+        
     {   // Disable all objects on screen
         SpawnManager.GetInstance().DisableAllObjects();
         // Deactivating player
@@ -142,22 +164,21 @@ public class GameManager : MonoBehaviour
         _hud.SetActive(false);
         // Activating Game over screen  
         _gameOverScreen.SetActive(true);
-        //Add score to the game over screen 
-        _score.text = "Score :" + ScoreManager.GetInstance().PlayerScore.ToString();
-    } 
-    // Read input text
-    public void ReadName(string inputName)
-    {
-        _username = inputName;
-        Debug.Log(_username);
-    } 
-    public void Submit()
-    { 
-        //Save name and score in High Score table
-        HighscoreTable._instance.AddHighscoreEntry(ScoreManager.GetInstance().PlayerScore,_username);
-
+        //Add score and time to the game over screen   
+        _scoreResGameOver.text = "Score : " + ScoreManager.GetInstance().PlayerScore.ToString();
+        _timeResGameOver.text = "Time : " + _time.text;
         
-
+    } 
+    public void Timer()
+    {
+        _timeResult.seconds += 1 * Time.deltaTime;
+        if (_timeResult.seconds >= 60)
+        {
+           _timeResult.minutes++;
+           _timeResult.seconds = 0;
+        } 
+        //Print time
+        _time.text = _timeResult.ConvertToText();
     } 
     #endregion
 }
