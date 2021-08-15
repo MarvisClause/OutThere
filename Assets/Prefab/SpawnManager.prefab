@@ -49,6 +49,6 @@ MonoBehaviour:
   - {fileID: 1805464642012237488, guid: ee1b3177db70a9b4c9a44964318d99c2, type: 3}
   _initialMaxEnemies: 3
   _timeToRandomlySpawnFrom: 3
-  _timeToRandomlySpawnTo: 6
+  _timeToRandomlySpawnTo: 10
   _newEnemyMultipleValue: 200
-  _newMaxQuantityOfEnemyMultipleValue: 50
+  _newMaxQuantityOfEnemyMultipleValue: 100

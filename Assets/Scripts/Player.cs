@@ -32,7 +32,7 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerRotationSpeed;
     // Player hit force
     [SerializeField] private float _playerHitForce;
-
+    
     [Header("Player bullet")]
     // Player bullet
     [SerializeField] private GameObject _playerProjectile;
@@ -51,8 +51,8 @@ public class Player : BaseActiveObject
     [SerializeField] private Sprite emptyHealth;
 
     // Player input
-    private float _horizontalInput;
-    private float _verticalInput;
+    float _horizontalInput;
+    float _verticalInput;
 
     #endregion
 
@@ -162,7 +162,7 @@ public class Player : BaseActiveObject
         if (_playerAnimator)
         {
             // Setting animation state
-            _playerAnimator.SetInteger(STATE_ANIMATION_VARIABLE_NAME, (int)_playerState);
+           _playerAnimator.SetInteger(STATE_ANIMATION_VARIABLE_NAME, (int)_playerState);
         }
     }
 
@@ -192,7 +192,7 @@ public class Player : BaseActiveObject
             }
         }
     }
-
+     
     // After player was hit there is time gap, where he can't be hit again
     private void HitCooldown()
     {
@@ -213,7 +213,7 @@ public class Player : BaseActiveObject
         // Setting its position and rotation
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
-    }
+    } 
 
     #endregion
 }

@@ -165,7 +165,7 @@ MonoBehaviour:
   _enemyHitEffect: {fileID: 8410181166214511092, guid: bee85290661c15c48b0e9171acc72646, type: 3}
   _scoreForKill: 20
   _enemyShipHealthInitial: 2
-  _enemyShipSpeed: 3
+  _enemyShipSpeed: 35
   _enemyShipDodgeSpeed: 10
   _enemyShipRotationSpeed: 1
   _enemyProjectile: {fileID: 4859727046847546834, guid: bf049350facc3824fa9a0a0a0c1d7e1f, type: 3}

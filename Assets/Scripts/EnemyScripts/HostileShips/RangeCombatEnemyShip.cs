@@ -28,10 +28,28 @@ public class RangeCombatEnemyShip : BaseEnemyShip
     [SerializeField] private float _minDistToPlayer;
     // Maximum distance to player, after which ship will go forward to player ship
     [SerializeField] private float _maxDistToPlayer;
+    // Distance to player
+    private float _distance;
 
     #endregion
 
     #region Unity
+    private void FixedUpdate()
+    {
+        // Get distance between player and enemy ship
+        _distance = (_playerPosition.position - transform.position).magnitude;
+        if (_distance < _minDistToPlayer)
+        {
+            // Try to get away from player
+            _objectRigidbody.AddForce(-(_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
+        }
+        else
+        if (_distance > _maxDistToPlayer)
+        {
+            // Get closer to the player
+            _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
+        }
+    }
 
     protected override void Awake()
     {
@@ -56,33 +74,11 @@ public class RangeCombatEnemyShip : BaseEnemyShip
     protected override void ShipBehaviour()
     {
         // Rotate towards player
-        // Calculate direction = destination - source
-        Vector3 direction = _playerPosition.position - transform.position;
-        // Calculate the angle using the inverse tangent method
-        // We also subtract 90 degrees from 180, because we use sprites, which are Y-axis oriented
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-        // Define the rotation along a specific axis using the angle
-        Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
-        // Slerp from our current rotation to the new specific rotation
-        transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * _enemyShipRotationSpeed);
-
-        // Get distance between player and enemy ship
-        float distance = (_playerPosition.position - transform.position).magnitude;
-        if (distance < _minDistToPlayer)
-        {
-            // Try to get away from player
-            _objectRigidbody.AddForce(-(_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
-        }
-        else
-        if (distance > _maxDistToPlayer)
-        {
-            // Get closer to the player
-            _objectRigidbody.AddForce((_playerPosition.position - transform.position).normalized * _enemyShipSpeed, ForceMode2D.Force);
-        }
+        RotateTowardsPlayer();
 
         // Cast a ray straight down.
         RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up, _playerPosition.position - transform.position);
-        if (distance < _maxDistToPlayer 
+        if (_distance < _maxDistToPlayer 
             && _enemyState == EnemyRangeShipState.Loaded
             && hit.collider.CompareTag(Globals.PLAYER_TAG))
         {
