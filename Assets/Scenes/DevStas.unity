@@ -637,6 +637,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _initialMaxEnemies
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437203289440816123, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
+      propertyPath: _newMaxQuantityOfEnemyMultipleValue
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6437203289440816124, guid: 37a2455f4f070cb438c91d90e405eba6, type: 3}
       propertyPath: m_Name
       value: SpawnManager
@@ -661,26 +669,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2224603354114323902, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 10380ea5fbb003941868ed6af51b2165, type: 3}
-    - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: fullHealth
-      value: 
-      objectReference: {fileID: 21300000, guid: 755246b7449186f4981ff3d3755b95d4, type: 3}
-    - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: emptyHealth
-      value: 
-      objectReference: {fileID: 21300000, guid: df61b9b6d8d6dd648b36771f6ed76357, type: 3}
-    - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: _playerProjectile
-      value: 
-      objectReference: {fileID: 4859727046847546834, guid: 471d49208cbadfc4c82bcafe7930052c, type: 3}
-    - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: health.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: health.Array.data[0]
       value: 
@@ -693,10 +681,6 @@ PrefabInstance:
       propertyPath: health.Array.data[2]
       value: 
       objectReference: {fileID: 248836499}
-    - target: {fileID: 6390674666405344569, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6531488122918279700, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -745,10 +729,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6745786946322991028, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
 --- !u!1 &2132752304 stripped
@@ -756,25 +736,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6745786946322991028, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
   m_PrefabInstance: {fileID: 1925781451}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2132752305
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132752304}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: de89b432e8df60c46ab6b022d03d57b9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2140565801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2140565801, guid: c275a8abf69706f48ab8245758c0061b, type: 3}

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-<<<<<<< HEAD
 [System.Serializable]
 // Struct for time
 public struct TimeRes
@@ -110,22 +109,28 @@ public class HighscoreTable : MonoBehaviour
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("Score Table", json);
         PlayerPrefs.Save();
-
     } 
 
     // Updates highscore
     public void UpdateHighscoreTable()
-    { 
+    {
+        // Load data form highscore list
+        string jsonString = PlayerPrefs.GetString("Score Table");
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+        // If there are no highscores
+        if (highscores == null)
+        {
+            Debug.Log("No highscores were found!");
+            return;
+        }
+
         // Clearing previous table  
         for (int i = 0; i < _highscoreEntryTransformList.Count; i++)
         {
             Destroy(_highscoreEntryTransformList[i].gameObject);
         }
         _highscoreEntryTransformList.Clear();
-         
-        // Load data form highscore list
-        string jsonString = PlayerPrefs.GetString("Score Table");
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
         // Sorting by coefficient ( coefficient = score / time )
         for (int i = 0; i < highscores.highscoreEntryList.Count; i++)
         {

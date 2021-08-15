@@ -80,6 +80,7 @@ public class CanvasButtons : MonoBehaviour
         GameManager.GetInstance().BackToMainMenu(); 
 
     }
+
     // Read input text
     public void ReadName(string inputName)
     {
@@ -89,6 +90,10 @@ public class CanvasButtons : MonoBehaviour
     // Submit button
     public void Submit()
     {
+        if (string.IsNullOrWhiteSpace(GameManager.GetInstance().Username) == true)
+        {
+            GameManager.GetInstance().Username = "NoName";
+        }
         //Save name and score in High Score table
         HighscoreTable._instance.AddHighscoreEntry(ScoreManager.GetInstance().PlayerScore,GameManager.GetInstance().TimeResult, GameManager.GetInstance().Username);
         HighscoreTable._instance.UpdateHighscoreTable();

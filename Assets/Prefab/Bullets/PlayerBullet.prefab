@@ -145,4 +145,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitEffect: {fileID: 8410181166214511092, guid: 38438d25f7681164e900acc2d1c2eedc, type: 3}
-  _projectileSpeed: 15
+  _projectileSpeed: 25

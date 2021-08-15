@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class RangeCombatEnemyShip : BaseEnemyShip
 {
+    #region Variables
+
+    // Animator variable
+    private string STATE_ANIMATION_VARIABLE_NAME = "State";
     // RangeCombatShip states
     private enum EnemyRangeShipState
     {
@@ -11,12 +15,6 @@ public class RangeCombatEnemyShip : BaseEnemyShip
         Reloading,
         Shooting
     }
-
-    #region Variables
-
-    // Animator variable
-    private string STATE_ANIMATION_VARIABLE_NAME = "State";
-
     // Enemy animation
     private Animator _enemyAnimation;
     // Enemy state

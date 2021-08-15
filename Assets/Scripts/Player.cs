@@ -7,6 +7,20 @@ public class Player : BaseActiveObject
 {
     #region Variables
 
+    // Animator  
+    private Animator _playerAnimator;
+    // Animator variable
+    private string STATE_ANIMATION_VARIABLE_NAME = "PlayerState";
+    // Player states
+    private enum PlayerState
+    {
+        Idle,
+        Moving,
+        IsHit
+    }
+    // Player state
+    private PlayerState _playerState;
+
     [Header("Player characteristics")]
     // Player max health 
     [SerializeField] private int _playerHealthMaxCapacity;
@@ -34,9 +48,7 @@ public class Player : BaseActiveObject
     // Sprite full heart 
     [SerializeField] private Sprite fullHealth;
     // Sprite empty heart 
-    [SerializeField] protected Sprite emptyHealth;
-    // Animator  
-    Animator animator;
+    [SerializeField] private Sprite emptyHealth;
 
     #endregion
 
@@ -45,7 +57,10 @@ public class Player : BaseActiveObject
     // On player enable
     protected void OnEnable()
     {
-        animator = GetComponent<Animator>();
+        // Getting player animator
+        _playerAnimator = GetComponent<Animator>();
+        // Setting player state
+        _playerState = 0;
         // Setting player hit condition to false
         _isPlayerHit = false;
         // Setting player health back to maximum value
@@ -70,92 +85,23 @@ public class Player : BaseActiveObject
                     ShootBullet();
                 }
             }
+            //Animation  
+            AnimationStateCheck();
         }
     }
 
-    #endregion
-
-    #region Methods
-
-    // Player movement
-    private void Movement()
+    // Fixed update
+    private void FixedUpdate()
     {
-        // Horizontal and vertical input
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        // Moving
-        _objectRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
-        // Rotating
-        transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
-        //Animation  
-        if (animator)
-        {
-            if (Mathf.Abs(horizontalInput + verticalInput) > 0)
-            {
-                animator.SetBool("Fly", true);
-            }
-           else
-            {
-                animator.SetBool("Fly", false);
-            }
-        }
-        
-    }
-
-    // Object reaction to being hit
-    protected override void Hit(Collision2D collision)
-    {
-        // Player pushed away after hit
-        _objectRigidbody.AddForce(_objectRigidbody.velocity * _playerHitForce * _playerHitForce, ForceMode2D.Force);
-        // Checking if player was hit or not
-        if (_isPlayerHit == false)
-        {
-            // Update health state
-            HealthUpdate();
-            // Play hit sound
-            SoundManager.GetInstance().PlaySound(Globals.PLAYER_HIT_SOUND);
-            // Was player hit
-            _isPlayerHit = true;
-            // Decrease player health
-            _playerRecentHealth--;
-            // Invoke method
-            Invoke(nameof(HitCooldown), _afterHitCooldownTime);
-            // Logging damage
-            Debug.Log("Player health after hit: " + _playerRecentHealth);
-        }
-    }
-     
-    // After player was hit there is time gap, where he can't be hit again
-    private void HitCooldown()
-    {
-        // Disabling player hit condition
-        _isPlayerHit = false;
-    }
-
-    // Player fire
-    private void ShootBullet()
-    {
-        // Setting bullet position and its rotation
-        Vector3 bulletPos = transform.position + transform.up;
-        Quaternion bulletRotate = transform.rotation;
-        // Requesting an object from spawn manager
-        GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
-        // Setting its position and rotation
-        bulletInstance.transform.position = bulletPos;
-        bulletInstance.transform.rotation = bulletRotate;
-    } 
-
-    private void HealthUpdate()
-    { 
-        //Heath system
+        // Heath system
         if (_playerRecentHealth > _playerHealthMaxCapacity)
         {
             _playerRecentHealth = _playerHealthMaxCapacity;
         }
-        //When heart full or not
-        for(int i=0;i<health.Length;i++)
+        // When heart full or not
+        for (int i = 0; i < health.Length; i++)
         {
-            if(i<Mathf.RoundToInt(_playerRecentHealth))
+            if (i < Mathf.RoundToInt(_playerRecentHealth))
             {
                 health[i].sprite = fullHealth;
             }
@@ -173,10 +119,96 @@ public class Player : BaseActiveObject
             }
             if (_playerRecentHealth < 1)
             {
-                GameManager.GetInstance().GameOver(); 
+                GameManager.GetInstance().GameOver();
             }
         }
     }
+
+    #endregion
+
+    #region Methods
+
+    // Player movement
+    private void Movement()
+    {
+        // Horizontal and vertical input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        // Moving
+        _objectRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
+        // Rotating
+        transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
+        // Animation
+        if (!_isPlayerHit)
+        {
+            if (Mathf.Abs(horizontalInput + verticalInput) > 0)
+            {
+                _playerState = PlayerState.Moving;
+            }
+            else
+            {
+                _playerState = PlayerState.Idle;
+            }
+        }
+    }
+
+    public void AnimationStateCheck()
+    {
+        if (_playerAnimator)
+        {
+            // Setting animation state
+           _playerAnimator.SetInteger(STATE_ANIMATION_VARIABLE_NAME, (int)_playerState);
+        }
+    }
+
+    // Object reaction to being hit
+    protected override void Hit(Collision2D collision)
+    {
+        // If it is not player bullet
+        if (!collision.gameObject.CompareTag(Globals.PLAYER_BULLET_TAG))
+        {
+            // Player pushed away after hit
+            _objectRigidbody.AddForce(_objectRigidbody.velocity * _playerHitForce * _playerHitForce, ForceMode2D.Force);
+            // Checking if player was hit or not
+            if (_isPlayerHit == false)
+            {
+                // Setting animation state
+                _playerState = PlayerState.IsHit;
+                // Play hit sound
+                SoundManager.GetInstance().PlaySound(Globals.PLAYER_HIT_SOUND);
+                // Was player hit
+                _isPlayerHit = true;
+                // Decrease player health
+                _playerRecentHealth--;
+                // Invoke method
+                Invoke(nameof(HitCooldown), _afterHitCooldownTime);
+                // Logging damage
+                Debug.Log("Player health after hit: " + _playerRecentHealth);
+            }
+        }
+    }
+     
+    // After player was hit there is time gap, where he can't be hit again
+    private void HitCooldown()
+    {
+        // Disabling player hit condition
+        _isPlayerHit = false;
+        // Setting player state to idle
+        _playerState = PlayerState.Idle;
+    }
+
+    // Player fire
+    private void ShootBullet()
+    {
+        // Setting bullet position and its rotation
+        Vector3 bulletPos = transform.position + transform.up;
+        Quaternion bulletRotate = transform.rotation;
+        // Requesting an object from spawn manager
+        GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
+        // Setting its position and rotation
+        bulletInstance.transform.position = bulletPos;
+        bulletInstance.transform.rotation = bulletRotate;
+    } 
 
     #endregion
 }
