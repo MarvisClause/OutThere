@@ -32,7 +32,7 @@ public class Player : BaseActiveObject
     [SerializeField] private float _playerRotationSpeed;
     // Player hit force
     [SerializeField] private float _playerHitForce;
-    
+
     [Header("Player bullet")]
     // Player bullet
     [SerializeField] private GameObject _playerProjectile;
@@ -49,6 +49,10 @@ public class Player : BaseActiveObject
     [SerializeField] private Sprite fullHealth;
     // Sprite empty heart 
     [SerializeField] private Sprite emptyHealth;
+
+    // Player input
+    private float _horizontalInput;
+    private float _verticalInput;
 
     #endregion
 
@@ -93,6 +97,9 @@ public class Player : BaseActiveObject
     // Fixed update
     private void FixedUpdate()
     {
+        // Moving
+        _objectRigidbody.AddForce(_verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
+
         // Heath system
         if (_playerRecentHealth > _playerHealthMaxCapacity)
         {
@@ -132,16 +139,14 @@ public class Player : BaseActiveObject
     private void Movement()
     {
         // Horizontal and vertical input
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        // Moving
-        _objectRigidbody.AddForce(verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
+        _horizontalInput = Input.GetAxis("Horizontal") * Time.deltaTime;
+        _verticalInput = Input.GetAxis("Vertical");
         // Rotating
-        transform.Rotate(0.0f, 0.0f, -horizontalInput * _playerRotationSpeed * Time.deltaTime);
+        transform.Rotate(0.0f, 0.0f, -_horizontalInput * _playerRotationSpeed);
         // Animation
         if (!_isPlayerHit)
         {
-            if (Mathf.Abs(horizontalInput + verticalInput) > 0)
+            if (Mathf.Abs(_horizontalInput + _verticalInput) > 0)
             {
                 _playerState = PlayerState.Moving;
             }
@@ -157,7 +162,7 @@ public class Player : BaseActiveObject
         if (_playerAnimator)
         {
             // Setting animation state
-           _playerAnimator.SetInteger(STATE_ANIMATION_VARIABLE_NAME, (int)_playerState);
+            _playerAnimator.SetInteger(STATE_ANIMATION_VARIABLE_NAME, (int)_playerState);
         }
     }
 
@@ -187,7 +192,7 @@ public class Player : BaseActiveObject
             }
         }
     }
-     
+
     // After player was hit there is time gap, where he can't be hit again
     private void HitCooldown()
     {
@@ -208,7 +213,7 @@ public class Player : BaseActiveObject
         // Setting its position and rotation
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
-    } 
+    }
 
     #endregion
 }

@@ -670,6 +670,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
+      propertyPath: _playerMovementSpeed
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: health.Array.data[0]
       value: 
       objectReference: {fileID: 1579901412}
