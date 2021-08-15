@@ -60,8 +60,8 @@ public abstract class BaseEnemyObject : BaseActiveObject
                 // Execute effect
                 HitByPlayerEffect(collision);
             }
-            }
         }
+    }
 
     // Method, which decribes, what happes after collision with player or bullet
     protected abstract void HitByPlayerEffect(Collision2D collision);

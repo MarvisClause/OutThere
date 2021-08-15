@@ -3,8 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+// Struct for time
+public struct TimeRes
+{
+    public float seconds;
+    public float minutes;
+
+    // Converts all time to seconds
+    public float ConvertToSeconds()
+    {
+        return minutes * 60 + seconds;
+    }
+    // Returns formatted strig
+    public string ConvertToText()
+    {
+        return ((int)minutes).ToString("D2") + ":" + ((int)seconds).ToString("D2");
+    }
+    // Resets time to zero
+    public void ResetTime()
+    {
+        minutes = seconds = 0;
+    }
+}
+
 public class HighscoreTable : MonoBehaviour 
-{   private Transform _entryContainer;
+{  
+    private Transform _entryContainer;
     private Transform _entryTemplate;
     private List<Transform> _highscoreEntryTransformList;
     [SerializeField]private int _maxQuantOfCompetetors; 
@@ -15,6 +40,7 @@ public class HighscoreTable : MonoBehaviour
         // For manual clean list of res
         //PlayerPrefs.DeleteAll(); 
 
+        // Initialize variables
         _instance = this;
         _highscoreEntryTransformList = new List<Transform>();
         _entryContainer = transform.Find("Score_Entry_Container");
@@ -22,20 +48,12 @@ public class HighscoreTable : MonoBehaviour
 
         _entryTemplate.gameObject.SetActive(false);
 
-        string jsonString = PlayerPrefs.GetString("Score Table");
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString); 
-
-         
-
-        if (highscores == null)
-        {// Reload
-            jsonString = PlayerPrefs.GetString("Score Table");
-            highscores = JsonUtility.FromJson<Highscores>(jsonString);
-        }
+        // Update highscore table
         UpdateHighscoreTable();
     }   
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry,Transform container,List<Transform> transformList)
-    {    //Height
+    {    
+        // Highscore parameters
         float templateHeight = 50f;
         Transform entryTransform = Instantiate(_entryTemplate, container);
         RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
@@ -54,20 +72,15 @@ public class HighscoreTable : MonoBehaviour
             case 3: rankString = "3RD"; break;
 
         }
+        // Position
         entryTransform.Find("Pos_Text").GetComponent<Text>().text = rankString;
-
-        int score = highscoreEntry.score;
-
-        entryTransform.Find("Score_Text").GetComponent<Text>().text = score.ToString();
-
-        string time = highscoreEntry.time.ConvertToText();
-
-        entryTransform.Find("Time_Text").GetComponent<Text>().text = time;
-
-        string name = highscoreEntry.name;
-
-        entryTransform.Find("Name_Text").GetComponent<Text>().text = name;
-
+        // Score
+        entryTransform.Find("Score_Text").GetComponent<Text>().text = highscoreEntry.score.ToString();
+        // Time
+        entryTransform.Find("Time_Text").GetComponent<Text>().text = highscoreEntry.time.ConvertToText();
+        // Name
+        entryTransform.Find("Name_Text").GetComponent<Text>().text = highscoreEntry.name;
+        // Add to list
         transformList.Add(entryTransform); 
     }  
 
@@ -98,14 +111,11 @@ public class HighscoreTable : MonoBehaviour
         PlayerPrefs.Save();
 
     } 
-    public void DelHighscoreEntry()
-    {
-        
-    }
 
+    // Updates highscore
     public void UpdateHighscoreTable()
     { 
-        
+        // Clearing previous table  
         for (int i = 0; i < _highscoreEntryTransformList.Count; i++)
         {
             Destroy(_highscoreEntryTransformList[i].gameObject);
@@ -130,11 +140,13 @@ public class HighscoreTable : MonoBehaviour
                 }
             }
         }
+        // Decreasing table to specific size
         int highscoreListCount=highscores.highscoreEntryList.Count;
         for (int i = highscoreListCount; i > _maxQuantOfCompetetors; i--)
         {
             highscores.highscoreEntryList.RemoveAt(i-1);
         }
+        // Recreating table
         foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
         {
             CreateHighscoreEntryTransform(highscoreEntry, _entryContainer, _highscoreEntryTransformList);
@@ -147,32 +159,11 @@ public class HighscoreTable : MonoBehaviour
         public List<HighscoreEntry> highscoreEntryList;
     }
      
-    //Represent a single High score entry 
+    // Represent a single High score entry 
     [System.Serializable]
     private class HighscoreEntry {
         public int score;
         public string name;
         public TimeRes time;
-        
     }
-} 
-    [System.Serializable]
-    public struct TimeRes 
-    {
-       public float seconds;
-       public float minutes;   
-
-    public float ConvertToSeconds()
-    {
-        return minutes *60+seconds; 
-    }
-       
-    public string ConvertToText()
-    {
-        return ((int)minutes).ToString("D2") + ":" + ((int)seconds).ToString("D2");
-    }
-    public void ResetTime()
-    {
-        minutes = seconds = 0;
-    }
-    }
+}

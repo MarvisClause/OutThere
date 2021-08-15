@@ -58,19 +58,22 @@ public class GameManager : MonoBehaviour
     {
         get { return _isOnPause; }
     }
+
     // Player object
     [SerializeField] protected GameObject _player;
     [SerializeField] protected GameObject _gameOverScreen;
     [SerializeField] protected GameObject _hud;
     [SerializeField] protected Text _scoreResGameOver;
     [SerializeField] protected Text _timeResGameOver;
+
+    // Player username
     protected string _username;
+    public string Username { get { return _username; } set { _username = value; } }
+
     //Time
     protected TimeRes _timeResult;
-    [SerializeField] Text _time;
-     
-    public string Username { get { return _username; } set { _username = value; } }
-    public TimeRes TimeResult { get { return _timeResult; } }  
+    [SerializeField] Text _gameTime;
+    public TimeRes TimeResult { get { return _timeResult; } }
 
     // Player script
     private Player _playerScript;
@@ -93,12 +96,12 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Check, if player is here
         if (_player.activeSelf == true)
         {
-          Timer(); 
+            // Timer work
+            Timer(); 
         }
-        
-        
     }
     #endregion
 
@@ -119,7 +122,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         // Setting pause state to false
         _isOnPause = false;
-       
     }
 
     // Pauses game
@@ -136,13 +138,13 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
     // Unpause game
     public void PauseGameOff()
     {
         _isOnPause = false;
         _player.SetActive(true);
         Time.timeScale = 1.0f;
-       
     }
 
     // Disables everything on scene to return it to the state of main menu
@@ -154,6 +156,8 @@ public class GameManager : MonoBehaviour
         //Reset time
         _timeResult.ResetTime();
     } 
+
+    // Game over
     public void GameOver()  
         
     {   // Disable all objects on screen
@@ -166,9 +170,11 @@ public class GameManager : MonoBehaviour
         _gameOverScreen.SetActive(true);
         //Add score and time to the game over screen   
         _scoreResGameOver.text = "Score : " + ScoreManager.GetInstance().PlayerScore.ToString();
-        _timeResGameOver.text = "Time : " + _time.text;
+        _timeResGameOver.text = "Time : " + _gameTime.text;
         
     } 
+
+    // Timer work
     public void Timer()
     {
         _timeResult.seconds += 1 * Time.deltaTime;
@@ -178,7 +184,8 @@ public class GameManager : MonoBehaviour
            _timeResult.seconds = 0;
         } 
         //Print time
-        _time.text = _timeResult.ConvertToText();
+        _gameTime.text = _timeResult.ConvertToText();
     } 
+
     #endregion
 }

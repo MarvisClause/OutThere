@@ -85,11 +85,14 @@ public class CanvasButtons : MonoBehaviour
     {
         GameManager.GetInstance().Username = string.Copy(inputName); 
     }
+
+    // Submit button
     public void Submit()
     {
         //Save name and score in High Score table
         HighscoreTable._instance.AddHighscoreEntry(ScoreManager.GetInstance().PlayerScore,GameManager.GetInstance().TimeResult, GameManager.GetInstance().Username);
         HighscoreTable._instance.UpdateHighscoreTable();
     }
+
     #endregion
 }

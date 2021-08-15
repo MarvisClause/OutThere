@@ -90,15 +90,14 @@ public class Player : BaseActiveObject
         //Animation  
         if (animator)
         {
-            if (horizontalInput+ verticalInput > 0)
+            if (Mathf.Abs(horizontalInput + verticalInput) > 0)
             {
-                animator.SetBool("Fly",true);
+                animator.SetBool("Fly", true);
             }
-            else
+           else
             {
                 animator.SetBool("Fly", false);
             }
-            //animator.SetBool("Fly", Mathf.Abs(horizontalInput+verticalInput) > 0f);
         }
         
     }
@@ -111,6 +110,8 @@ public class Player : BaseActiveObject
         // Checking if player was hit or not
         if (_isPlayerHit == false)
         {
+            // Update health state
+            HealthUpdate();
             // Play hit sound
             SoundManager.GetInstance().PlaySound(Globals.PLAYER_HIT_SOUND);
             // Was player hit
@@ -143,15 +144,14 @@ public class Player : BaseActiveObject
         bulletInstance.transform.position = bulletPos;
         bulletInstance.transform.rotation = bulletRotate;
     } 
-    //
-    private void FixedUpdate()
-    { //Heath system
+
+    private void HealthUpdate()
+    { 
+        //Heath system
         if (_playerRecentHealth > _playerHealthMaxCapacity)
         {
             _playerRecentHealth = _playerHealthMaxCapacity;
         }
-        //Test heel
-        //_playerRecentHealth *= Time.deltaTime * heal;
         //When heart full or not
         for(int i=0;i<health.Length;i++)
         {
