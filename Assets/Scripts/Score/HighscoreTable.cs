@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HighscoreTable : MonoBehaviour 
+public class HighscoreTable : MonoBehaviour  
 {   private Transform _entryContainer;
     private Transform _entryTemplate;
     private List<Transform> _highscoreEntryTransformList;

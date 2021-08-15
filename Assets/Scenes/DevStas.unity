@@ -503,18 +503,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 932895363, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
-      propertyPath: _maxQuantOfCompetetors
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227172731, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
-      propertyPath: m_Text
-      value: 'Time : '
-      objectReference: {fileID: 0}
-    - target: {fileID: 2140565801, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5901866114089984264, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
       propertyPath: m_Camera
       value: 
@@ -607,10 +595,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5901866115707682983, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
 --- !u!1001 &1514920602
@@ -691,7 +675,7 @@ PrefabInstance:
     - target: {fileID: 2224603354114323902, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9444db113cbd1b048b3787f3902b414f, type: 3}
+      objectReference: {fileID: 21300000, guid: 10380ea5fbb003941868ed6af51b2165, type: 3}
     - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: fullHealth
       value: 

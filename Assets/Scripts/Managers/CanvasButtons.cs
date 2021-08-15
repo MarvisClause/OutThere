@@ -84,7 +84,8 @@ public class CanvasButtons : MonoBehaviour
     public void ReadName(string inputName)
     {
         GameManager.GetInstance().Username = string.Copy(inputName); 
-    }
+    } 
+    // Submit button
     public void Submit()
     {
         //Save name and score in High Score table
