@@ -60,6 +60,12 @@ public class Player : BaseActiveObject
 
     #region Unity
 
+    private void Start()
+    {
+        // Subscrive on event
+        _playerShootButton.onClick.AddListener(ShootBullet);
+    }
+
     // On player enable
     protected void OnEnable()
     {
@@ -71,8 +77,6 @@ public class Player : BaseActiveObject
         _isPlayerHit = false;
         // Setting player health back to maximum value
         _playerRecentHealth = _playerHealthMaxCapacity;
-        // Subscrive on event
-        _playerShootButton.onClick.AddListener(ShootBullet);
     }
 
     // Update is called once per frame
