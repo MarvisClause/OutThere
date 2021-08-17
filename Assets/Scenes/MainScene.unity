@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &262164556 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2929252283110305058, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
+  m_PrefabInstance: {fileID: 1836837058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &276634870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,13 +199,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: _playerMovementSpeed
-      value: 35
-      objectReference: {fileID: 0}
+      propertyPath: _playerJoystick
+      value: 
+      objectReference: {fileID: 262164556}
     - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
-      propertyPath: _playerRotationSpeed
-      value: 140
-      objectReference: {fileID: 0}
+      propertyPath: _playerShootButton
+      value: 
+      objectReference: {fileID: 2009603358}
     - target: {fileID: 3383606661316065572, guid: 115731dd2b7ccce4ca1b98734c81c02c, type: 3}
       propertyPath: health.Array.data[0]
       value: 
@@ -739,5 +750,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2009603358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2009603358, guid: c275a8abf69706f48ab8245758c0061b, type: 3}
+  m_PrefabInstance: {fileID: 1836837058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

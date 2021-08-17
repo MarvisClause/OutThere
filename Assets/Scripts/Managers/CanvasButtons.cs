@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class CanvasButtons : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class CanvasButtons : MonoBehaviour
     // Gameover
     [SerializeField] protected GameObject _gameover;
 
+    // Pause button in hud
+    [SerializeField] private Button _hudPauseButton;
+
     #endregion
 
     #region Unity  
@@ -25,6 +29,8 @@ public class CanvasButtons : MonoBehaviour
     public void Start()
     {
         _pauseMenu.SetActive(false);
+        // Subscribe button
+        _hudPauseButton.onClick.AddListener(PauseGame);
     }
 
     private void Update()

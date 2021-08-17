@@ -28,8 +28,6 @@ public class Player : BaseActiveObject
     private int _playerRecentHealth;
     // Player movement speed
     [SerializeField] private float _playerMovementSpeed;
-    // Player rotation speed
-    [SerializeField] private float _playerRotationSpeed;
     // Player hit force
     [SerializeField] private float _playerHitForce;
     
@@ -51,8 +49,12 @@ public class Player : BaseActiveObject
     [SerializeField] private Sprite emptyHealth;
 
     // Player input
-    float _horizontalInput;
-    float _verticalInput;
+    float _joystickInput;
+
+    // Player joystick
+    [SerializeField] private Joystick _playerJoystick;
+    // Player shoot button
+    [SerializeField] private Button _playerShootButton;
 
     #endregion
 
@@ -69,6 +71,8 @@ public class Player : BaseActiveObject
         _isPlayerHit = false;
         // Setting player health back to maximum value
         _playerRecentHealth = _playerHealthMaxCapacity;
+        // Subscrive on event
+        _playerShootButton.onClick.AddListener(ShootBullet);
     }
 
     // Update is called once per frame
@@ -79,16 +83,6 @@ public class Player : BaseActiveObject
             base.Update();
             // Moving
             Movement();
-            // Shooting
-            if (!IsPlayerHit)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    // Fire sound
-                    SoundManager.GetInstance().PlaySound(Globals.PLAYER_FIRE);
-                    ShootBullet();
-                }
-            }
             //Animation  
             AnimationStateCheck();
         }
@@ -97,9 +91,16 @@ public class Player : BaseActiveObject
     // Fixed update
     private void FixedUpdate()
     {
+        // Rotate
+        if (_joystickInput > 0)
+        {
+            // Calculate rotation
+            float heading = Mathf.Atan2(_playerJoystick.Direction.y, _playerJoystick.Direction.x) * Mathf.Rad2Deg - 90;
+            // Rotate object
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, 0f, heading), Time.deltaTime * 5);
+        }
         // Moving
-        _objectRigidbody.AddForce(_verticalInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
-
+        _objectRigidbody.AddForce(_joystickInput * transform.up.normalized * _playerMovementSpeed, ForceMode2D.Force);
         // Heath system
         if (_playerRecentHealth > _playerHealthMaxCapacity)
         {
@@ -138,15 +139,12 @@ public class Player : BaseActiveObject
     // Player movement
     private void Movement()
     {
-        // Horizontal and vertical input
-        _horizontalInput = Input.GetAxis("Horizontal") * Time.deltaTime;
-        _verticalInput = Input.GetAxis("Vertical");
-        // Rotating
-        transform.Rotate(0.0f, 0.0f, -_horizontalInput * _playerRotationSpeed);
+        // Joystick input
+        _joystickInput = _playerJoystick.Direction.normalized.magnitude;
         // Animation
         if (!_isPlayerHit)
         {
-            if (Mathf.Abs(_horizontalInput + _verticalInput) > 0)
+            if (Mathf.Abs(_joystickInput) > 0)
             {
                 _playerState = PlayerState.Moving;
             }
@@ -205,14 +203,19 @@ public class Player : BaseActiveObject
     // Player fire
     private void ShootBullet()
     {
-        // Setting bullet position and its rotation
-        Vector3 bulletPos = transform.position + transform.up;
-        Quaternion bulletRotate = transform.rotation;
-        // Requesting an object from spawn manager
-        GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
-        // Setting its position and rotation
-        bulletInstance.transform.position = bulletPos;
-        bulletInstance.transform.rotation = bulletRotate;
+        if (!IsPlayerHit)
+        {
+            // Fire sound
+            SoundManager.GetInstance().PlaySound(Globals.PLAYER_FIRE);
+            // Setting bullet position and its rotation
+            Vector3 bulletPos = transform.position + transform.up;
+            Quaternion bulletRotate = transform.rotation;
+            // Requesting an object from spawn manager
+            GameObject bulletInstance = SpawnManager.GetInstance().SpawnObject(SpawnManager.PoolType.PlayerBullets, _playerProjectile);
+            // Setting its position and rotation
+            bulletInstance.transform.position = bulletPos;
+            bulletInstance.transform.rotation = bulletRotate;
+        }
     } 
 
     #endregion
