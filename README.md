@@ -15,5 +15,6 @@ Made by:
 - **Bryzghalov Maxim - coding, design.**  
 - **Kozhukhar Nikita - music, sound effects.**  
 ____
-![Alt Text](https://github.com/MarvisClause/OutThere/blob/main/ShowcaseFiles/Outthere_gameOver.gif)
+![Alt Text](https://github.com/MarvisClause/OutThere/blob/main/ShowcaseFiles/Outthere_gameOver.gif) 
+YOU CAN PLAY NOW! - https://marviskaminskyi.itch.io/out-there
 ____
